@@ -1,0 +1,252 @@
+/* Общие стили */
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #9370DB;
+  background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMebYU5jF5E8V0svgv6eiZ9-TWXXgow01b7OMOR_lErnqpjuvEkvzDbSNYFDXtmcSa8nNC0XUQNLiGBVYm1RlrwVYmxE7Vg3TVEsHMXeyk3DEgpi4Huqbg87QCmq5fVWzqOpbz-0i8AIJbaUyaAuQL3=w1560-h877-s-no-gm?authuser=0');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Семейное древо */
+.family-tree {
+  display: grid;
+  grid-template-columns: repeat(28, 1fr);
+  grid-template-rows: repeat(6, minmax(200px, auto));
+  gap: 10px;
+  padding: 40px 20px;
+  justify-items: center;
+  align-items: start;
+}
+
+.tree-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  max-width: 180px;
+  height: clamp(180px, 20vh, 240px);
+  padding: 10px;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.tree-node img {
+  width: auto;
+  max-height: 70%;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.tree-node img:hover {
+  transform: scale(1.05);
+}
+
+.name {
+  margin-top: auto;
+  color: #FFFF00;
+  font-size: 14px;
+  line-height: 1.3;
+  max-height: 70px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.name small {
+  font-size: 12px;
+  color: #FFD700;
+  line-height: 1.2;
+}
+
+/* Ссылки в имени */
+.name a {
+  color: #FFD700;
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 1px dashed #FFD700;
+  padding-bottom: 2px;
+  margin-top: 8px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.9;
+}
+
+.name a:hover {
+  color: #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  text-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
+  transform: translateY(-1px) scale(1.03);
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.name a::before {
+  content: "🔗 ";
+  font-size: 11px;
+  margin-right: 4px;
+  opacity: 0.8;
+}
+
+/* Приветственное сообщение */
+.welcome-message {
+  text-align: center;
+  padding: 16px 20px;
+  max-width: 90vw;
+  margin: 20px auto 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  color: #FFFFFF;
+  font-size: clamp(14px, 4vw, 16px);
+  line-height: 1.6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Модальное окно — ЕДИНСТВЕННЫЙ набор стилей */
+
+#modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#modalOverlay.open {
+  display: flex;
+  opacity: 1;
+}
+
+/* Обёртка для изображения и подписи */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 90vw;
+  max-height: 90vh;
+  gap: 12px; /* отступ между изображением и подписью */
+}
+
+#modalImage {
+  max-width: 90vw;
+  max-height: 70vh; /* ограничение по высоте, чтобы подпись влезла */
+  border: 4px solid white;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#modalOverlay.open #modalImage {
+  opacity: 1;
+}
+
+.modal-caption {
+  color: #FFFFFF;
+  font-size: clamp(16px, 4vw, 24px);
+  font-weight: 500;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 100%;
+  padding: 0 10px;
+  white-space: pre-line;
+  line-height: 1.5;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Кнопки модального окна */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 36px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.modal-nav:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.modal-nav.hidden {
+  display: none;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .tree-node {
+    height: clamp(160px, 18vh, 200px);
+    max-width: 140px;
+    padding: 8px;
+  }
+  .name {
+    max-height: 60px;
+    font-size: 12px;
+  }
+  .name small {
+    font-size: 10px;
+  }
+}
+
