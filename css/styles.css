@@ -18,7 +18,7 @@ body {
 /* Семейное древо */
 .family-tree {
   display: grid;
-  grid-template-columns: repeat(28, 1fr);
+  grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(6, minmax(200px, auto));
   gap: 10px;
   padding: 40px 20px;
