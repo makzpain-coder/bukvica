@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Буквица</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="kolo.png" type="image/png">
-  <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Древнесловенская буквица</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="kolo.png" type="image/png" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  
   <div class="layout">
+    <!-- Левая колонка -->
     <div class="sidebar-left">Колонка 1</div>
 
+    <!-- Основной контент -->
     <div class="content">
       <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Древнесловенская буквица</h2>
-      
-   
+
       <div class="container">
         <div class="family-tree">
 		
+	<!-- Сетка 7×7 будет заполнена через JS или вручную -->
+
           <!-- Первое поколение -->
 		  
 		<div class="tree-node">
@@ -378,28 +380,32 @@
 			 <div class="name">Ижа</div>
          </div>
 		 
-		 
-
         </div>
       </div>
-	    
     </div>
-
-    <div class="sidebar-right">Колонка 3</div>
   </div>
-  
-<!-- Модальное окно -->
-<div class="modal" id="modal">
-  <!-- Кнопки навигации — снаружи .modal-content, но внутри .modal -->
-  <button id="prev-btn" class="nav-btn prev"></button>
-  <button id="next-btn" class="nav-btn next"></button>
-  <button class="close">×</button>
 
-  <!-- Основное окно с iframe -->
-  <div class="modal-content">
-    <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen title="Контент страницы"></iframe>
+  <!-- Модальное окно -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Просмотр буквицы">
+    <!-- Кнопки навигации -->
+    <button id="prev-btn" class="nav-btn prev" aria-label="Предыдущая буквица"></button>
+    <button id="next-btn" class="nav-btn next" aria-label="Следующая буквица"></button>
+    <button class="close" aria-label="Закрыть модальное окно">×</button>
 
+    <!-- Основное окно с iframe -->
+    <div class="modal-content">
+      <iframe
+        id="modal-iframe"
+        src=""
+        frameborder="0"
+        allowfullscreen
+        title="Контент буквицы"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
 
-<script src="js/script.js"></script>
+  <!-- Скрипт внизу body -->
+  <script src="js/script.js"></script>
 </body>
 </html>
