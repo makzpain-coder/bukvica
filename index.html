@@ -389,23 +389,22 @@
   </div>
   
 <!-- Модальное окно -->
-<div id="modal" class="modal">
+<div class="modal" id="modal">
+  <!-- Кнопки навигации — снаружи .modal-content, но внутри .modal -->
+  <button id="prev-btn" class="nav-btn prev"></button>
+  <button id="next-btn" class="nav-btn next"></button>
+  <button class="close">×</button>
+
+  <!-- Основное окно с iframe -->
   <div class="modal-content">
-    <!-- Стрелки и крестик будут ПЕРЕД или ВНУТРИ, но позиционируются от modal -->
-    <span class="close">&times;</span>
-    <button id="prev-btn" class="nav-btn prev">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-      </svg>
-    </button>
-    <button id="next-btn" class="nav-btn next">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-        <path d="M8.59 7.41L10 6l6 6-6 6-1.41-1.41L13.17 12z"/>
-      </svg>
-    </button>
-    <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen></iframe>
+    <iframe id="modal-iframe" src="" frameborder="0" allowfullscreen title="Контент страницы"></iframe>
   </div>
 </div>
+
+
+  </div>
+</div>
+
 
   </div>
 </div>
