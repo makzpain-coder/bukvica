@@ -258,9 +258,9 @@ body {
   border-radius: 0 0 16px 16px;
 }
 
-/* === Адаптивность для мобильных === */
+/* === Адаптивность для мобильных устройств === */
 
-/* На экранах до 768px — упрощаем макет */
+/* На экранах до 768px — отключаем сетку, включаем горизонтальную прокрутку */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
@@ -272,63 +272,116 @@ body {
     padding: 15px;
   }
 
+  /* Контейнер для прокрутки */
+  .container {
+    padding: 15px 0;
+  }
+
+  /* Горизонтальная прокрутка вместо сетки */
   .family-tree {
-    max-width: 100%;
-    gap: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-    padding: 10px 0;
+    padding: 10px 0 10px 10px;
     background: rgba(255, 255, 255, 0.85);
-    border-radius: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    scrollbar-width: thin;
+    scrollbar-color: #b8a594 #f9f7f4;
   }
 
+  /* Скрываем полосу прокрутки (опционально) */
+  .family-tree::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .family-tree::-webkit-scrollbar-track {
+    background: #f9f7f4;
+    border-radius: 3px;
+  }
+
+  .family-tree::-webkit-scrollbar-thumb {
+    background: #b8a594;
+    border-radius: 3px;
+  }
+
+  /* Каждая карточка — квадрат 80×80px */
   .tree-node {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    flex: 0 0 80px;
     width: 80px;
     height: 80px;
-    min-width: 80px;
     border-radius: 8px;
-    margin: 0 5px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
     scroll-snap-align: start;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
+  .tree-node:hover,
+  .tree-node:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+  }
+
+  /* Изображение — строго квадратное, по центру */
   .tree-node img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 60px;
     height: 60px;
     object-fit: contain;
     background: #fff;
     border-radius: 6px;
     padding: 4px;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease;
   }
 
-  /* Эффект при нажатии */
-  .tree-node:active {
-    transform: scale(0.95);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  .tree-node img:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  /* Подсказка для пользователя */
+  .family-tree::before {
+    content: "← Проведите пальцем →";
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+    font-style: italic;
   }
 }
 
-/* На очень маленьких экранах (до 400px) */
+/* === На очень маленьких экранах (до 400px) === */
 @media (max-width: 400px) {
   .family-tree {
     gap: 8px;
-    padding: 8px 0;
+    padding: 8px 0 8px 8px;
   }
 
   .tree-node {
+    flex: 0 0 70px;
     width: 70px;
     height: 70px;
-    min-width: 70px;
   }
 
   .tree-node img {
     width: 52px;
     height: 52px;
   }
+
+  .family-tree::before {
+    font-size: 11px;
+  }
 }
+
