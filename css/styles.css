@@ -1,5 +1,4 @@
-/* style.css — Обновлённый стиль: трёхколоночный макет, 7×7 сетка, модальное окно с внешними кнопками */
-
+/* === Глобальные сбросы и базовые стили === */
 * {
   margin: 0;
   padding: 0;
@@ -14,25 +13,20 @@ body {
   color: #333;
 }
 
-/* Макет из трёх колонок */
+/* === Двухколоночный макет === */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr;
   gap: 20px;
   max-width: 1400px;
   margin: 0 auto;
   min-height: 100vh;
 }
 
-/* Боковые панели — фон пергамента */
-.sidebar-left,
-.sidebar-right {
-  background: #FFFAFA;
-  background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+/* Левая колонка — пергамент */
+.sidebar-left {
+  background: #FFFAFA url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+    center/cover fixed no-repeat;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -42,23 +36,21 @@ body {
   font-size: 18px;
   color: #555;
   text-align: center;
+  font-style: italic;
+  font-weight: 300;
 }
 
 /* Основной контент — фон древней бумаги */
 .content {
-  background: #FFFAFA;
-  background-image: url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background: #FFFAFA url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+    center/cover fixed no-repeat;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
 
-/* Центрирование сетки */
+/* === Сетка 7×7 — центрирование и размеры === */
 .container {
   display: flex;
   justify-content: center;
@@ -66,7 +58,6 @@ body {
   padding: 20px 0;
 }
 
-/* Сетка 7×7 — квадратная */
 .family-tree {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -82,17 +73,16 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* Узел сетки — квадрат 1:1 */
+/* Узел сетки */
 .tree-node {
   position: relative;
-  width: 100%;
   aspect-ratio: 1 / 1;
   background: #f9f9f9;
+  border: 1px solid #eee;
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: 1px solid #eee;
 }
 
 .tree-node:hover {
@@ -101,7 +91,7 @@ body {
   z-index: 1;
 }
 
-/* Изображение внутри узла */
+/* Изображение в узле */
 .tree-node img {
   position: absolute;
   top: 0;
@@ -117,40 +107,48 @@ body {
   transform: scale(1.08);
 }
 
-/* Подписи (скрыты) */
+/* Подпись (скрыта) */
 .name {
   display: none;
 }
 
-/* Модальное окно — контейнер */
+/* === Модальное окно === */
 .modal {
   display: none;
   position: fixed;
   z-index: 1000;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.85);
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(2px);
-  overflow: hidden;
 }
 
-/* Контент модального окна — по центру */
+/* Основное окно — на всю высоту, шире сетки */
 .modal-content {
   position: relative;
-  width: 70%;
-  height: 96vh;
-  max-width: 1000px;
-  max-height: 96vh;
+  width: 80%;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 90vh;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
   animation: modalFadeIn 0.3s ease-out;
   z-index: 1;
+}
+
+/* Iframe — заполняет всё окно */
+#modal-iframe {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: none;
+  border-radius: 0 0 16px 16px;
 }
 
 /* Анимация появления */
@@ -165,7 +163,7 @@ body {
   }
 }
 
-/* Крестик — в правом верхнем углу экрана */
+/* Крестик закрытия */
 .close {
   position: absolute;
   top: 20px;
@@ -196,7 +194,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Навигационные кнопки — по краям экрана */
+/* Навигационные кнопки */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -226,17 +224,14 @@ body {
   transform: translateY(-50%) scale(0.95);
 }
 
-/* Левая стрелка — слева от экрана */
 .prev {
   left: 20px;
 }
 
-/* Правая стрелка — справа от экрана */
 .next {
   right: 20px;
 }
 
-/* Стрелки — через псевдоэлементы */
 .prev::before {
   content: "‹";
   font-size: 24px;
@@ -249,35 +244,29 @@ body {
   color: white;
 }
 
-/* iframe — занимает всё свободное пространство */
-#modal-iframe {
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  border: none;
-  border-radius: 0 0 16px 16px;
-}
-
-/* === Адаптивность для мобильных устройств === */
-
-/* На экранах до 768px — отключаем сетку, включаем горизонтальную прокрутку */
+/* === Адаптивность для мобильных === */
 @media (max-width: 768px) {
+  /* Макет: одна колонка */
   .layout {
     grid-template-columns: 1fr;
     gap: 15px;
     min-height: auto;
   }
 
+  .sidebar-left,
   .content {
     padding: 15px;
   }
 
-  /* Контейнер для прокрутки */
+  .sidebar-left {
+    font-size: 16px;
+  }
+
   .container {
     padding: 15px 0;
   }
 
-  /* Горизонтальная прокрутка вместо сетки */
+  /* Сетка: горизонтальная прокрутка */
   .family-tree {
     display: flex;
     flex-wrap: nowrap;
@@ -293,7 +282,6 @@ body {
     scrollbar-color: #b8a594 #f9f7f4;
   }
 
-  /* Скрываем полосу прокрутки (опционально) */
   .family-tree::-webkit-scrollbar {
     height: 6px;
   }
@@ -308,30 +296,26 @@ body {
     border-radius: 3px;
   }
 
-  /* Каждая карточка — квадрат 80×80px */
+  /* Подсказка для прокрутки */
+  .family-tree::before {
+    content: "← Проведите пальцем →";
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  /* Узлы — фиксированного размера */
   .tree-node {
     flex: 0 0 80px;
-    width: 80px;
     height: 80px;
     border-radius: 8px;
-    background: #f9f9f9;
-    border: 1px solid #eee;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    scroll-snap-align: start;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: start;
   }
 
-  .tree-node:hover,
-  .tree-node:active {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    z-index: 1;
-  }
-
-  /* Изображение — строго квадратное, по центру */
   .tree-node img {
     position: absolute;
     top: 50%;
@@ -343,35 +327,39 @@ body {
     border-radius: 6px;
     padding: 4px;
     transform: translate(-50%, -50%);
-    transition: transform 0.3s ease;
   }
 
-  .tree-node img:hover {
-    transform: translate(-50%, -50%) scale(1.1);
+  /* Модальное окно — на всю ширину */
+  .modal-content {
+    width: 100%;
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
   }
 
-  /* Подсказка для пользователя */
-  .family-tree::before {
-    content: "← Проведите пальцем →";
-    display: block;
-    text-align: center;
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 6px;
-    font-style: italic;
+  .close {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .prev::before,
+  .next::before {
+    font-size: 20px;
   }
 }
 
-/* === На очень маленьких экранах (до 400px) === */
+/* === Очень маленькие экраны (телефоны) === */
 @media (max-width: 400px) {
-  .family-tree {
-    gap: 8px;
-    padding: 8px 0 8px 8px;
-  }
-
   .tree-node {
     flex: 0 0 70px;
-    width: 70px;
     height: 70px;
   }
 
@@ -383,5 +371,37 @@ body {
   .family-tree::before {
     font-size: 11px;
   }
+
+  .modal-content {
+    border-radius: 0;
+  }
 }
 
+/* === Поддержка touch-интерфейсов === */
+@media (hover: none) and (pointer: coarse) {
+  .tree-node {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .tree-node:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* === Оптимизация анимаций === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Фокус для доступности === */
+.close:focus,
+.nav-btn:focus {
+  outline: 2px solid #00aaff;
+  outline-offset: 2px;
+}
