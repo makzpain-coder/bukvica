@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f4f4f4;
+  background: #FFFAFA;
   padding: 20px;
 }
 
@@ -22,7 +22,8 @@ body {
 
 .sidebar-left,
 .sidebar-right {
-  background: #fff;
+  background: #FFFAFA;
+  background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMebYU5jF5E8V0svgv6eiZ9-TWXXgow01b7OMOR_lErnqpjuvEkvzDbSNYFDXtmcSa8nNC0XUQNLiGBVYm1RlrwVYmxE7Vg3TVEsHMXeyk3DEgpi4Huqbg87QCmq5fVWzqOpbz-0i8AIJbaUyaAuQL3=w1560-h877-s-no-gm?authuser=0');
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -34,7 +35,8 @@ body {
 }
 
 .content {
-  background: #fff;
+  background: #FFFAFA;
+  background-image: url('https://lh3.googleusercontent.com/pw/AP1GczMebYU5jF5E8V0svgv6eiZ9-TWXXgow01b7OMOR_lErnqpjuvEkvzDbSNYFDXtmcSa8nNC0XUQNLiGBVYm1RlrwVYmxE7Vg3TVEsHMXeyk3DEgpi4Huqbg87QCmq5fVWzqOpbz-0i8AIJbaUyaAuQL3=w1560-h877-s-no-gm?authuser=0');
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
@@ -53,22 +55,24 @@ body {
 .family-tree {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 2px; /* Минимальное расстояние между карточками */
+  grid-template-rows: repeat(7, 1fr);
+  gap: 8px;
   width: 100%;
-  max-width: 600px; /* Контролируем размер для мобильных */
-  aspect-ratio: 1 / 1; /* Делает весь контейнер квадратным */
+  max-width: 700px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
   position: relative;
 }
 
 /* Каждый узел — квадрат 1:1 */
 .tree-node {
-  background: #f9f9f9;
-  border-radius: 4px;
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 0;
-  padding-bottom: 100%; /* Сохраняет квадратную форму */
+  padding-bottom: 100%; /* Сохраняет квадрат */
+  background: #f9f9f9;
+  border-radius: 4px;
 }
 
 /* Изображение внутри узла */
@@ -79,8 +83,9 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
   border: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .tree-node img:hover {
@@ -91,6 +96,126 @@ body {
 /* Подписи скрыты */
 .name {
   display: none;
+}
+
+/* Модальное окно — фон */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  overflow: hidden; /* Предотвращает скролл из-за выступающих элементов */
+}
+
+/* Контент модального окна */
+.modal-content {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  max-width: 1000px;
+  max-height: 800px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease-out;
+  z-index: 1;
+}
+
+/* Анимация появления */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Крестик — за пределы справа сверху */
+.close {
+  position: absolute;
+  top: 20px;
+  right: -50px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1002;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.close:hover,
+.close:focus {
+  background: #ff3333;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Навигационные кнопки — за пределы */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Стрелка "Назад" — за левый край */
+.prev {
+  left: -25px;
+}
+
+/* Стрелка "Вперёд" — за правый край */
+.next {
+  right: -25px;
+}
+
+/* iframe внутри модального окна */
+#modal-iframe {
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 
 /* Адаптивность: на экранах до 768px */
@@ -106,16 +231,12 @@ body {
   }
 
   .family-tree {
-    max-width: 100%;
-    gap: 1px; /* Ещё меньше зазор */
-  }
-
-  .tree-node img {
-    border-radius: 2px;
+    max-width: 600px;
+    gap: 6px;
   }
 }
 
-/* На очень узких экранах (например, мобильные) — вертикальная прокрутка */
+/* На очень узких экранах — адаптируем стрелки и крестик */
 @media (max-width: 480px) {
   .family-tree {
     max-height: 400px;
@@ -132,8 +253,36 @@ body {
     background: #ccc;
     border-radius: 4px;
   }
+
+  .tree-node {
+    border-radius: 2px;
+  }
+
+  /* Адаптация модального окна */
+  .close {
+    right: 10px;
+    top: 10px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .prev,
+  .next {
+    width: 44px;
+    height: 44px;
+  }
+
+  .prev {
+    left: 10px;
+  }
+
+  .next {
+    right: 10px;
+  }
 }
 
+/* На экранах меньше 400px — уменьшаем масштаб сетки */
 @media (max-width: 400px) {
   .family-tree {
     transform: scale(0.85);
