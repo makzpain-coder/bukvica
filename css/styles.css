@@ -50,30 +50,34 @@ body {
   overflow: auto;
 }
 
-/* === Сетка 7×7 — центрирование и размеры === */
+/* === Сетка 7×7 — адаптивная, масштабируемая === */
 .container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 20px 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .family-tree {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(7, 1fr);
-  gap: 8px;
+  gap: 4px;
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   aspect-ratio: 1 / 1;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1.5px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-/* Узел сетки */
 .tree-node {
   position: relative;
   aspect-ratio: 1 / 1;
@@ -82,32 +86,25 @@ body {
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .tree-node:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   z-index: 1;
 }
 
-/* Изображение в узле */
 .tree-node img {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
-  border: none;
 }
 
 .tree-node img:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
-/* Подпись (скрыта) */
 .name {
   display: none;
 }
@@ -127,7 +124,6 @@ body {
   backdrop-filter: blur(2px);
 }
 
-/* Основное окно — на всю высоту, шире сетки */
 .modal-content {
   position: relative;
   width: 80%;
@@ -142,7 +138,6 @@ body {
   z-index: 1;
 }
 
-/* Iframe — заполняет всё окно */
 #modal-iframe {
   width: 100%;
   height: 100%;
@@ -151,7 +146,6 @@ body {
   border-radius: 0 0 16px 16px;
 }
 
-/* Анимация появления */
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -163,7 +157,6 @@ body {
   }
 }
 
-/* Крестик закрытия */
 .close {
   position: absolute;
   top: 20px;
@@ -194,7 +187,6 @@ body {
   outline-offset: 2px;
 }
 
-/* Навигационные кнопки */
 .nav-btn {
   position: absolute;
   top: 50%;
@@ -244,7 +236,7 @@ body {
   color: white;
 }
 
-/* === Адаптивность для мобильных === */
+/* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
 @media (max-width: 768px) {
   /* Макет: одна колонка */
   .layout {
@@ -266,67 +258,15 @@ body {
     padding: 15px 0;
   }
 
-  /* Сетка: горизонтальная прокрутка */
+  /* Сетка 7×7 — остаётся grid, но уменьшается */
   .family-tree {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 12px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding: 10px 0 10px 10px;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    scrollbar-width: thin;
-    scrollbar-color: #b8a594 #f9f7f4;
+    max-width: 500px;
+    gap: 3px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
   }
 
-  .family-tree::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .family-tree::-webkit-scrollbar-track {
-    background: #f9f7f4;
-    border-radius: 3px;
-  }
-
-  .family-tree::-webkit-scrollbar-thumb {
-    background: #b8a594;
-    border-radius: 3px;
-  }
-
-  /* Подсказка для прокрутки */
-  .family-tree::before {
-    content: "← Проведите пальцем →";
-    display: block;
-    text-align: center;
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 6px;
-    font-style: italic;
-  }
-
-  /* Узлы — фиксированного размера */
   .tree-node {
-    flex: 0 0 80px;
-    height: 80px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    scroll-snap-align: start;
-  }
-
-  .tree-node img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    background: #fff;
-    border-radius: 6px;
-    padding: 4px;
-    transform: translate(-50%, -50%);
+    border-radius: 3px;
   }
 
   /* Модальное окно — на всю ширину */
@@ -357,23 +297,14 @@ body {
 }
 
 /* === Очень маленькие экраны (телефоны) === */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
+  .family-tree {
+    max-width: 320px;
+    gap: 2px;
+  }
+
   .tree-node {
-    flex: 0 0 70px;
-    height: 70px;
-  }
-
-  .tree-node img {
-    width: 52px;
-    height: 52px;
-  }
-
-  .family-tree::before {
-    font-size: 11px;
-  }
-
-  .modal-content {
-    border-radius: 0;
+    border: 1px solid #f0f0f0;
   }
 }
 
