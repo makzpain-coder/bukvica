@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f5f0e6; /* Тёплый фон вместо холодного #B0C4DE */
+  background: #f5f0e6;
   padding: 20px;
   line-height: 1.6;
   color: #333;
@@ -34,7 +34,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 18px;
-  color: #555;
+  color: #fff; /* Белый текст в левой колонке */
   text-align: center;
   font-style: italic;
   font-weight: 300;
@@ -49,6 +49,7 @@ body {
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
+
 /* === Сетка 7×7 — адаптивная, масштабируемая === */
 .container {
   display: flex;
@@ -78,17 +79,16 @@ body {
   background: transparent;
 }
 
-
 .tree-node {
   position: relative;
   aspect-ratio: 1 / 1;
   background: transparent;
-  border: 1px solid rgba(180, 150, 100, 0.5); /* Тёплая коричневатая рамка */
+  border: 1px solid rgba(180, 150, 100, 0.5);
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); /* Лёгкая тень — для объёма */
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
 .tree-node:hover {
@@ -240,7 +240,6 @@ body {
 
 /* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
 @media (max-width: 768px) {
-  /* Макет: одна колонка */
   .layout {
     grid-template-columns: 1fr;
     gap: 15px;
@@ -260,7 +259,6 @@ body {
     padding: 15px 0;
   }
 
-  /* Сетка 7×7 — остаётся grid, но уменьшается */
   .family-tree {
     max-width: 500px;
     gap: 3px;
@@ -271,7 +269,6 @@ body {
     border-radius: 3px;
   }
 
-  /* Модальное окно — на всю ширину */
   .modal-content {
     width: 100%;
     border-radius: 0;
@@ -337,4 +334,75 @@ body {
 .nav-btn:focus {
   outline: 2px solid #00aaff;
   outline-offset: 2px;
+}
+
+/* === Подвал сайта === */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 20px 30px;
+  background: #f0e8d5;
+  color: #5a4a3a;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  border-top: 1px solid #d4c8b5;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #5a4a3a;
+}
+
+.footer-logo h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.footer-description {
+  font-size: 0.95em;
+  font-style: italic;
+  margin: 0 0 16px;
+  color: #6b5c4b;
+  line-height: 1.6;
+}
+
+.footer-copyright {
+  font-size: 0.85em;
+  color: #999;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+  .footer-description {
+    font-size: 0.9em;
+  }
+}
+
+/* === Белый текст для заголовка на главной === */
+.content h2 {
+  color: #fff !important;
 }
