@@ -1,11 +1,11 @@
-/* pages.css — Спокойный, сбалансированный стиль без излишних акцентов */
-
+/* === Глобальные сбросы и базовые стили === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* === Основной контент страниц буквиц === */
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #f9f7f4;
@@ -18,6 +18,7 @@ body {
   font-size: 1em;
 }
 
+/* === Заголовки === */
 h1 {
   color: #5a4a3a;
   font-size: 2.5em;
@@ -36,6 +37,7 @@ h2 {
   font-weight: 600;
 }
 
+/* === Основной текст === */
 p {
   margin: 20px 0;
   text-indent: 20px;
@@ -43,6 +45,20 @@ p {
   color: #333;
 }
 
+/* Последний абзац — выделение как "итог" */
+article p:last-child,
+section p:last-child {
+  text-indent: 20px;
+  margin: 30px 0 0;
+  padding: 12px 15px;
+  background: #f8f4f0;
+  border-left: 3px solid #b8a594;
+  color: #333;
+  font-style: italic;
+  border-radius: 0 6px 6px 0;
+}
+
+/* === Цитаты === */
 blockquote {
   background: #f0e8d5;
   border-left: 4px solid #b8a594;
@@ -53,6 +69,7 @@ blockquote {
   border-radius: 0 8px 8px 0;
 }
 
+/* === Контейнер изображения === */
 .image-container {
   display: inline-flex;
   align-items: center;
@@ -74,6 +91,7 @@ blockquote {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Изображение буквицы */
 .clickable-image {
   width: 140px;
   height: 140px;
@@ -88,21 +106,7 @@ blockquote {
   opacity: 0.9;
 }
 
-/* pages.css — Последний абзац выделен фоном, но в стиле */
-
-article p:last-child,
-section p:last-child {
-  text-indent: 20px; /* Сохраняем красную строку */
-  margin: 30px 0 0;
-  padding: 12px 15px;
-  background: #f8f4f0; /* Очень светлый беж — как выделение пером */
-  border-left: 3px solid #b8a594; /* Тонкая полоса — акцент, как в цитатах */
-  color: #333;
-  font-style: italic; /* Лёгкий курсив — придаёт вес */
-  border-radius: 0 6px 6px 0;
-}
-
-/* Подвал — тихое завершение */
+/* === Подвал === */
 footer {
   text-align: center;
   margin-top: 60px;
@@ -124,7 +128,9 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Адаптивность */
+/* === Адаптивность === */
+
+/* Мобильные устройства (до 600px) */
 @media (max-width: 600px) {
   body {
     padding: 20px 15px;
@@ -159,6 +165,7 @@ footer a:hover {
   }
 }
 
+/* Очень маленькие экраны (до 400px) */
 @media (max-width: 400px) {
   body {
     font-size: 0.9em;
@@ -178,4 +185,3 @@ footer a:hover {
     height: 95px;
   }
 }
-
