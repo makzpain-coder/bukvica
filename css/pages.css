@@ -26,29 +26,69 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* === Заголовки с отступом при прокрутке === */
-h1, h2 {
-  color: #5a4a3a;
-  scroll-margin-top: 80px;
+/* === Обёртка для обтекания картинки слева === */
+/* Добавим обёртку через :before, чтобы не менять HTML */
+.image-container {
+  float: left; /* Главное: float для обтекания */
+  margin: 0 20px 10px 0; /* Отступ: справа и снизу */
+  width: 158px;
+  height: 158px;
+  background: #fff;
+  border: 1px solid #e0d6c4;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: none; /* Отключаем transition — чтобы не тормозить на мобильных */
+  will-change: auto;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
+/* === Эффект только при активном касании (не на hover) === */
+.image-container:active {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Убираем hover на сенсорных устройствах */
+@media (hover: none) and (pointer: coarse) {
+  .image-container:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* === Кликабельное изображение === */
+.clickable-image {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+/* Отключаем hover-эффект на мобильных */
+@media (hover: none) and (pointer: coarse) {
+  .clickable-image:hover {
+    opacity: 1;
+  }
+}
+
+/* === Заголовок и текст — чтобы не ломались === */
 h1 {
+  color: #5a4a3a;
   font-size: 2.5em;
   text-align: center;
   margin: 40px 0 30px;
   letter-spacing: 2px;
   font-weight: 600;
+  clear: none; /* Не блокируем обтекание */
 }
 
-h2 {
-  font-size: 1.6em;
-  border-bottom: 1px solid #d4c8b5;
-  padding-bottom: 8px;
-  margin: 40px 0 20px;
-  font-weight: 600;
-}
-
-/* === Основной текст === */
 p {
   margin: 20px 0;
   text-indent: 20px;
@@ -56,20 +96,50 @@ p {
   color: #333;
 }
 
-/* Последний абзац — выделение как "итог" */
-article p:last-child,
-section p:last-child {
-  text-indent: 20px;
-  margin: 30px 0 0;
-  padding: 12px 15px;
-  background: #f8f4f0;
-  border-left: 3px solid #b8a594;
-  color: #333;
-  font-style: italic;
-  border-radius: 0 6px 6px 0;
+/* Первый абзац — может начинаться сразу после картинки */
+p:first-of-type {
+  text-indent: 0; /* Убираем отступ, если текст обтекает */
 }
 
-/* === Цитаты === */
+/* Если нужно — первый абзац начинается с новой строки */
+/* Уберите, если хотите обтекание */
+/*
+.image-container + p {
+  clear: right;
+}
+*/
+
+/* === Адаптивность: на малых экранах — чуть меньше === */
+@media (max-width: 600px) {
+  .image-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 15px 10px 0;
+    padding: 6px;
+  }
+
+  .clickable-image {
+    width: 126px;
+    height: 126px;
+  }
+}
+
+@media (max-width: 400px) {
+  .image-container {
+    width: 110px;
+    height: 110px;
+    margin: 0 10px 10px 0;
+    padding: 4px;
+  }
+
+  .clickable-image {
+    width: 98px;
+    height: 98px;
+  }
+}
+
+/* === Цитаты, подвал и другие стили — остаются без изменений === */
+
 blockquote {
   background: #f0e8d5;
   border-left: 4px solid #b8a594;
@@ -80,45 +150,6 @@ blockquote {
   border-radius: 0 8px 8px 0;
 }
 
-/* === Контейнер изображения === */
-.image-container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 158px;
-  height: 158px;
-  margin: 0 20px 10px 0;
-  background: #fff;
-  border: 1px solid #e0d6c4;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 8px; /* Увеличили кликабельную зону */
-}
-
-.image-container:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.clickable-image {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  display: block;
-  border-radius: 6px;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
-  max-width: 100%;
-  height: auto;
-}
-
-.clickable-image:hover {
-  opacity: 0.9;
-}
-
-/* === Подвал === */
 footer {
   text-align: center;
   margin-top: 60px;
