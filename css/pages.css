@@ -11,16 +11,28 @@ body {
   background: #f9f7f4;
   color: #333;
   line-height: 1.8;
-  padding: 40px 20px;
+  padding: max(40px, env(safe-area-inset-top)) 
+            max(20px, env(safe-area-inset-right)) 
+            60px 
+            max(20px, env(safe-area-inset-left));
   max-width: 800px;
   margin: 0 auto;
   text-align: justify;
   font-size: 1em;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* === Заголовки === */
-h1 {
+/* === Заголовки с отступом при прокрутке === */
+h1, h2 {
   color: #5a4a3a;
+  scroll-margin-top: 80px;
+}
+
+h1 {
   font-size: 2.5em;
   text-align: center;
   margin: 40px 0 30px;
@@ -29,7 +41,6 @@ h1 {
 }
 
 h2 {
-  color: #5a4a3a;
   font-size: 1.6em;
   border-bottom: 1px solid #d4c8b5;
   padding-bottom: 8px;
@@ -83,7 +94,7 @@ blockquote {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  float: left;
+  padding: 8px; /* Увеличили кликабельную зону */
 }
 
 .image-container:hover {
@@ -91,7 +102,6 @@ blockquote {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Изображение буквицы */
 .clickable-image {
   width: 140px;
   height: 140px;
@@ -100,6 +110,8 @@ blockquote {
   border-radius: 6px;
   transition: opacity 0.3s ease;
   cursor: pointer;
+  max-width: 100%;
+  height: auto;
 }
 
 .clickable-image:hover {
@@ -126,62 +138,4 @@ footer a {
 footer a:hover {
   color: #333;
   text-decoration: underline;
-}
-
-/* === Адаптивность === */
-
-/* Мобильные устройства (до 600px) */
-@media (max-width: 600px) {
-  body {
-    padding: 20px 15px;
-    font-size: 0.95em;
-  }
-
-  h1 {
-    font-size: 2.2em;
-    margin: 30px 0 25px;
-  }
-
-  h2 {
-    font-size: 1.5em;
-  }
-
-  .image-container {
-    float: none;
-    display: block;
-    margin: 20px auto 15px;
-    width: 130px;
-    height: 130px;
-  }
-
-  .clickable-image {
-    width: 115px;
-    height: 115px;
-  }
-
-  footer {
-    margin-top: 40px;
-    font-size: 0.85em;
-  }
-}
-
-/* Очень маленькие экраны (до 400px) */
-@media (max-width: 400px) {
-  body {
-    font-size: 0.9em;
-  }
-
-  h1 {
-    font-size: 2em;
-  }
-
-  .image-container {
-    width: 110px;
-    height: 110px;
-  }
-
-  .clickable-image {
-    width: 95px;
-    height: 95px;
-  }
 }
