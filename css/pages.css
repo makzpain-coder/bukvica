@@ -9,7 +9,7 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   background: #f9f7f4;
-  color: #333;
+  color: #000000; /* ✅ Основной цвет текста — теперь чёрный */
   line-height: 1.8;
   padding: max(40px, env(safe-area-inset-top)) 
             max(20px, env(safe-area-inset-right)) 
@@ -94,7 +94,7 @@ body {
 
 /* === Заголовок и текст === */
 h1 {
-  color: #5a4a3a;
+  color: #903521;
   font-size: 2.5em;
   text-align: center;
   margin: 40px 0 30px;
@@ -107,12 +107,17 @@ p {
   margin: 20px 0;
   text-indent: 20px;
   font-size: 1.05em;
-  color: #333;
+  color: #000000; /* ✅ Цвет абзацев — теперь чёрный */
 }
 
 /* Первый абзац — без отступа, чтобы начинать рядом с картинкой */
 p:first-of-type {
   text-indent: 0;
+}
+
+/* === Цвет последнего абзаца — особый === */
+p:last-of-type {
+  color: #903521; /* остаётся без изменений */
 }
 
 /* === Адаптивность: подстройка под малые экраны === */
@@ -151,7 +156,7 @@ blockquote {
   margin: 25px 0;
   padding: 15px 20px;
   font-style: italic;
-  color: #5a4a3a;
+  color: #D1685E; /* ✅ Цвет текста цитат изменён */
   border-radius: 0 8px 8px 0;
 }
 
