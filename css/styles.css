@@ -61,6 +61,7 @@ body {
   margin: 0 auto;
 }
 
+/* === Сетка 7×7 — адаптивная, масштабируемая === */
 .family-tree {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -72,11 +73,11 @@ body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.85);
+  /* background: rgba(255, 255, 255, 0.85); */ /* ← удалено: перезаписано */
+  background: transparent; /* ← остаётся единственным значением */
   backdrop-filter: blur(1.5px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  background: transparent;
 }
 
 .tree-node {
@@ -295,7 +296,7 @@ body {
   }
 }
 
-/* === Очень маленькие экраны (телефоны) === */
+/* === Объединённый адаптивный блок для маленьких экранов === */
 @media (max-width: 480px) {
   .family-tree {
     max-width: 320px;
@@ -304,6 +305,19 @@ body {
 
   .tree-node {
     border: 1px solid #f0f0f0;
+  }
+
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+
+  .footer-description {
+    font-size: 0.9em;
   }
 }
 
