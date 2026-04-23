@@ -1,183 +1,125 @@
-/* === Глобальные сбросы и базовые стили === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  // Основные элементы
+  const modal = document.getElementById("modal");
+  const iframe = document.getElementById("modal-iframe");
+  const closeBtn = document.querySelector(".close");
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
 
-/* === Основной контент страниц буквиц === */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f9f7f4;
-  color: #000000; /* ✅ Основной цвет текста — теперь чёрный */
-  line-height: 1.8;
-  padding: max(40px, env(safe-area-inset-top)) 
-            max(20px, env(safe-area-inset-right)) 
-            60px 
-            max(20px, env(safe-area-inset-left));
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: justify;
-  font-size: 1em;
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+  let currentPage = 0;
+  const totalPages = 49;
 
-/* === Контейнер изображения — float слева, обтекание текстом === */
-.image-container {
-  float: left;
-  margin: 0 20px 10px 0;
-  width: 158px;
-  height: 158px;
-  background: #fff;
-  border: 1px solid #e0d6c4;
-  border-radius: 8px;
-  position: relative;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: none;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
+  // --- Функция: обновить состояние кнопок ---
+  function updateNavButtons() {
+    prevBtn.disabled = currentPage <= 1;
+    nextBtn.disabled = currentPage >= totalPages;
 
-/* Тень — отдельный слой, чтобы не перерисовывалась при скролле */
-.image-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
-  transition: box-shadow 0.3s ease;
-}
+    prevBtn.style.opacity = currentPage <= 1 ? "0.4" : "0.8";
+    nextBtn.style.opacity = currentPage >= totalPages ? "0.4" : "0.8";
 
-/* Эффект при нажатии — только при касании */
-.image-container:active::after {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transform: translateZ(0);
-}
-
-/* Убираем hover на сенсорных устройствах — чтобы не "застревал" */
-@media (hover: none) and (pointer: coarse) {
-  .image-container:hover::after,
-  .image-container:focus::after {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-}
-
-/* === Кликабельное изображение === */
-.clickable-image {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  border-radius: 6px;
-  display: block;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
-}
-
-/* Отключаем hover-эффект на мобильных */
-@media (hover: none) and (pointer: coarse) {
-  .clickable-image:hover {
-    opacity: 1;
-  }
-}
-
-/* === Заголовок и текст === */
-h1 {
-  color: #903521;
-  font-size: 2.5em;
-  text-align: center;
-  margin: 40px 0 30px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  clear: none;
-}
-
-p {
-  margin: 20px 0;
-  text-indent: 20px;
-  font-size: 1.05em;
-  color: #000000; /* ✅ Цвет абзацев — теперь чёрный */
-}
-
-/* Первый абзац — без отступа, чтобы начинать рядом с картинкой */
-p:first-of-type {
-  text-indent: 0;
-}
-
-/* === Цвет последнего абзаца — особый === */
-p:last-of-type {
-  color: #903521; /* остаётся без изменений */
-}
-
-/* === Адаптивность: подстройка под малые экраны === */
-@media (max-width: 600px) {
-  .image-container {
-    width: 140px;
-    height: 140px;
-    margin: 0 15px 10px 0;
-    padding: 6px;
+    prevBtn.style.cursor = currentPage <= 1 ? "not-allowed" : "pointer";
+    nextBtn.style.cursor = currentPage >= totalPages ? "not-allowed" : "pointer";
   }
 
-  .clickable-image {
-    width: 126px;
-    height: 126px;
+  // --- Функция: открыть страницу ---
+  function openModal(pageNum) {
+    const page = Math.max(1, Math.min(pageNum, totalPages));
+    currentPage = page;
+    iframe.src = `pages/page${page}.html`;
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+    modal.setAttribute("aria-hidden", "false");
+
+    // Обновляем состояние кнопок
+    updateNavButtons();
+
+    // Фокус на модальное окно для доступности
+    modal.focus();
   }
-}
 
-@media (max-width: 400px) {
-  .image-container {
-    width: 110px;
-    height: 110px;
-    margin: 0 10px 10px 0;
-    padding: 4px;
+  // --- Функция: закрыть окно ---
+  function closeModal() {
+    modal.style.display = "none";
+    iframe.src = ""; // Очищаем iframe
+    document.body.style.overflow = "";
+    modal.setAttribute("aria-hidden", "true");
+    document.body.focus(); // Возвращаем фокус
   }
 
-  .clickable-image {
-    width: 98px;
-    height: 98px;
+  // --- Открытие модального окна ---
+  document.querySelectorAll(".tree-node a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = link.getAttribute("href");
+      const match = href.match(/page(\d+)\.html$/);
+      const pageNum = match ? parseInt(match[1], 10) : 1;
+      openModal(pageNum);
+    });
+  });
+
+  // --- Обработчики событий ---
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) openModal(currentPage - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPages) openModal(currentPage + 1);
+  });
+
+  // --- Клавиатурная навигация ---
+  document.addEventListener("keydown", (e) => {
+    if (modal.style.display !== "flex") return;
+
+    switch (e.key) {
+      case "Escape":
+        closeModal();
+        break;
+      case "ArrowLeft":
+        e.preventDefault();
+        if (currentPage > 1) openModal(currentPage - 1);
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        if (currentPage < totalPages) openModal(currentPage + 1);
+        break;
+    }
+  });
+
+  // --- Дополнительно: ARIA и доступность ---
+  modal.setAttribute("aria-hidden", "true");
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Страница буквицы");
+
+  closeBtn.setAttribute("aria-label", "Закрыть модальное окно");
+  prevBtn.setAttribute("aria-label", "Предыдущая буквица");
+  nextBtn.setAttribute("aria-label", "Следующая буквица");
+
+  modal.setAttribute("tabindex", "-1");
+
+  // === Адаптивная сетка: встроена в DOMContentLoaded ===
+  function resizeFamilyTree() {
+    const tree = document.querySelector('.family-tree');
+    if (!tree) return; // Защита
+
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth <= 480) {
+      tree.style.width = '90%';
+    } else if (windowWidth <= 768) {
+      tree.style.width = '85%';
+    } else {
+      tree.style.width = '100%';
+      tree.style.maxWidth = '600px';
+    }
   }
-}
 
-/* === Цитаты === */
-blockquote {
-  background: #f0e8d5;
-  border-left: 4px solid #b8a594;
-  margin: 25px 0;
-  padding: 15px 20px;
-  font-style: italic;
-  color: #D1685E; /* ✅ Цвет текста цитат изменён */
-  border-radius: 0 8px 8px 0;
-}
-
-/* === Подвал === */
-footer {
-  text-align: center;
-  margin-top: 60px;
-  color: #999;
-  font-size: 0.9em;
-  padding: 20px 0;
-  border-top: 1px dashed #d4c8b5;
-  font-style: italic;
-}
-
-footer a {
-  color: #5a4a3a;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-footer a:hover {
-  color: #333;
-  text-decoration: underline;
-}
+  // Вызываем при загрузке и ресайзе
+  resizeFamilyTree(); // Сразу при загрузке
+  window.addEventListener('resize', resizeFamilyTree);
+});
