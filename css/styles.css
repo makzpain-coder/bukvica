@@ -341,7 +341,7 @@ body {
   margin-top: 60px;
   padding: 40px 20px 30px;
   background: #f0e8d5;
-  color: #5a4a3a;
+  color: #9D3521; /* ✅ Основной цвет текста подвала изменён */
   font-family: 'Playfair Display', serif;
   text-align: center;
   border-top: 1px solid #d4c8b5;
@@ -364,7 +364,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #5a4a3a;
+  border: 1px solid #9D3521; /* ✅ Рамка логотипа — в тон цвету */
 }
 
 .footer-logo h3 {
@@ -372,23 +372,25 @@ body {
   font-weight: 600;
   margin: 0;
   letter-spacing: 1px;
+  color: #9D3521; /* ✅ Заголовок логотипа — выделен */
 }
 
 .footer-description {
   font-size: 0.95em;
   font-style: italic;
   margin: 0 0 16px;
-  color: #6b5c4b;
+  color: #7a2c1b; /* ✅ Темнее оттенок для читаемости, но в той же гамме */
   line-height: 1.6;
 }
 
 .footer-copyright {
   font-size: 0.85em;
-  color: #999;
+  color: #999; /* можно оставить серым — он нейтрален и не должен выделяться */
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
+/* === Адаптивность === */
 @media (max-width: 480px) {
   .footer-logo {
     flex-direction: column;
