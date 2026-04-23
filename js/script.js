@@ -33,8 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Обновляем состояние кнопок
     updateNavButtons();
 
-    // Не фокусируемся на prevBtn — это вызывает подсветку
-    // Лучше фокус на само модальное окно (для доступности)
+    // Фокус на модальное окно для доступности
     modal.focus();
   }
 
@@ -101,6 +100,26 @@ document.addEventListener("DOMContentLoaded", () => {
   prevBtn.setAttribute("aria-label", "Предыдущая буквица");
   nextBtn.setAttribute("aria-label", "Следующая буквица");
 
-  // Добавим tabindex для фокуса на модальное окно
   modal.setAttribute("tabindex", "-1");
+
+  // === Адаптивная сетка: встроена в DOMContentLoaded ===
+  function resizeFamilyTree() {
+    const tree = document.querySelector('.family-tree');
+    if (!tree) return; // Защита
+
+    const windowWidth = window.innerWidth;
+
+    if (windowWidth <= 480) {
+      tree.style.width = '90%';
+    } else if (windowWidth <= 768) {
+      tree.style.width = '85%';
+    } else {
+      tree.style.width = '100%';
+      tree.style.maxWidth = '600px';
+    }
+  }
+
+  // Вызываем при загрузке и ресайзе
+  resizeFamilyTree(); // Сразу при загрузке
+  window.addEventListener('resize', resizeFamilyTree);
 });
