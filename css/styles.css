@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #B0C4DE;
+  background: #f5f0e6; /* Тёплый фон вместо холодного #B0C4DE */
   padding: 20px;
   line-height: 1.6;
   color: #333;
@@ -25,7 +25,7 @@ body {
 
 /* Левая колонка — пергамент */
 .sidebar-left {
-  background: #FFFAFA url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+  background: #B0C4DE url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
     center/cover fixed no-repeat;
   padding: 20px;
   border-radius: 12px;
@@ -42,14 +42,13 @@ body {
 
 /* Основной контент — фон древней бумаги */
 .content {
-  background: #FFFAFA url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+  background: #f5f0e6 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
     center/cover fixed no-repeat;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   overflow: auto;
 }
-
 /* === Сетка 7×7 — адаптивная, масштабируемая === */
 .container {
   display: flex;
@@ -76,22 +75,25 @@ body {
   backdrop-filter: blur(1.5px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  background: transparent;
 }
+
 
 .tree-node {
   position: relative;
   aspect-ratio: 1 / 1;
-  background: #f9f9f9;
-  border: 1px solid #eee;
-  border-radius: 4px;
+  background: transparent;
+  border: 1px solid rgba(180, 150, 100, 0.5); /* Тёплая коричневатая рамка */
+  border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); /* Лёгкая тень — для объёма */
 }
 
 .tree-node:hover {
   transform: translateY(-2px);
-  z-index: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .tree-node img {
