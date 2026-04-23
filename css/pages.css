@@ -1,195 +1,193 @@
 /* === Глобальные сбросы и базовые стили === */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0;                     /* → сбрасываем внешние отступы у всех элементов */
+  padding: 0;                   /* → сбрасываем внутренние отступы */
+  box-sizing: border-box;       /* → ширина/высота включают padding и border */
 }
 
 /* === Основной контент страниц буквиц === */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f9f7f4;
-  color: #000000; /* ✅ Основной цвет текста — теперь чёрный */
-  line-height: 1.8;
+  font-family: 'Segoe UI', sans-serif;  /* → современный, читаемый шрифт */
+  background: #f9f7f4;                  /* → светло-бежевый фон — как старинная бумага */
+  color: #000000;                       /* → основной текст — чёрный, лучше читается */
+  line-height: 1.8;                     /* → высота строки — комфортно для чтения */
   padding: max(40px, env(safe-area-inset-top)) 
             max(20px, env(safe-area-inset-right)) 
             60px 
-            max(20px, env(safe-area-inset-left));
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: justify;
-  font-size: 1em;
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+            max(20px, env(safe-area-inset-left)); /* → отступы с учётом "безопасной зоны" на iPhone */
+  max-width: 800px;                     /* → ограничение ширины для удобства чтения */
+  margin: 0 auto;                       /* → центрирование по горизонтали */
+  text-align: justify;                  /* → выравнивание текста по ширине */
+  font-size: 1em;                       /* → базовый размер шрифта */
+  min-height: 100vh;                    /* → минимум высоты — весь экран */
+  overflow-x: hidden;                   /* → запрещаем горизонтальный скролл */
+  -webkit-font-smoothing: antialiased;  /* → сглаживание шрифтов в WebKit (Safari) */
+  -moz-osx-font-smoothing: grayscale;   /* → сглаживание в Firefox на macOS */
+  text-rendering: optimizeLegibility;   /* → улучшает читаемость шрифтов */
 }
 
 /* === Контейнер изображения — float слева, обтекание текстом === */
 .image-container {
-  float: left;
-  margin: 0 20px 10px 0;
-  width: 158px;
-  height: 158px;
-  background: #fff;
-  border: 1px solid #e0d6c4;
-  border-radius: 8px;
-  position: relative;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: none;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  float: left;                          /* → изображение прижато к левому краю, текст обтекает */
+  margin: 0 20px 10px 0;                /* → отступы: справа 20px, снизу 10px */
+  width: 158px;                         /* → фиксированная ширина */
+  height: 158px;                        /* → фиксированная высота */
+  background: #fff;                     /* → белый фон под изображением */
+  border: 1px solid #e0d6c4;            /* → светлая рамка — как рамка на старинной иллюстрации */
+  border-radius: 8px;                   /* → скруглённые углы */
+  position: relative;                   /* → для позиционирования тени (::after) */
+  padding: 8px;                         /* → внутренний отступ вокруг изображения */
+  display: flex;                        /* → центрируем изображение */
+  align-items: center;                  /* → по вертикали */
+  justify-content: center;              /* → по горизонтали */
+  flex-shrink: 0;                       /* → не сжимается при нехватке места */
+  transition: none;                     /* → отключаем анимации — для производительности */
+  backface-visibility: hidden;          /* → оптимизация рендеринга при 3D-трансформациях */
+  -webkit-backface-visibility: hidden;  /* → поддержка в старых WebKit-браузерах */
 }
 
 /* Тень — отдельный слой, чтобы не перерисовывалась при скролле */
 .image-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
+  content: '';                          /* → псевдоэлемент для тени */
+  position: absolute;                   /* → накладывается поверх */
+  top: 0;                               /* → растягиваем на всю область */
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
-  transition: box-shadow 0.3s ease;
+  border-radius: 8px;                   /* → скругление как у контейнера */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* → лёгкая тень */
+  pointer-events: none;                 /* → не мешает кликам по изображению */
+  transition: box-shadow 0.3s ease;     /* → плавное изменение тени */
 }
 
 /* Эффект при нажатии — только при касании */
 .image-container:active::after {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transform: translateZ(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* → тень становится сильнее при нажатии */
+  transform: translateZ(0);              /* → принудительная активация GPU (оптимизация) */
 }
 
 /* Убираем hover на сенсорных устройствах — чтобы не "застревал" */
 @media (hover: none) and (pointer: coarse) {
   .image-container:hover::after,
   .image-container:focus::after {
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* → отменяем hover-тень на сенсорных экранах */
   }
 }
 
 /* === Кликабельное изображение === */
 .clickable-image {
-  width: 140px;
-  height: 140px;
-  object-fit: contain;
-  border-radius: 6px;
-  display: block;
-  transition: opacity 0.3s ease;
-  cursor: pointer;
+  width: 140px;                         /* → ширина изображения */
+  height: 140px;                        /* → высота */
+  object-fit: contain;                  /* → изображение вписывается, сохраняя пропорции */
+  border-radius: 6px;                   /* → скруглённые углы */
+  display: block;                       /* → блочный элемент */
+  transition: opacity 0.3s ease;        /* → плавное затемнение при hover */
+  cursor: pointer;                      /* → указатель-палец */
 }
 
 /* Отключаем hover-эффект на мобильных */
 @media (hover: none) and (pointer: coarse) {
   .clickable-image:hover {
-    opacity: 1;
+    opacity: 1;                         /* → на мобильных hover не нужен */
   }
 }
 
 /* === Заголовок и текст === */
 h1 {
-  color: #903521;
-  font-size: 2.5em;
-  text-align: center;
-  margin: 40px 0 30px;
-  letter-spacing: 2px;
-  font-weight: 600;
-  clear: none;
+  color: #903521;                       /* → тёмно-коричневый — как в старинных книгах */
+  font-size: 2.5em;                     /* → крупный заголовок */
+  text-align: center;                   /* → по центру */
+  margin: 40px 0 30px;                  /* → отступы сверху и снизу */
+  letter-spacing: 2px;                  /* → увеличенные интервалы между буквами */
+  font-weight: 600;                     /* → полужирный */
+  clear: none;                          /* → не блокируем обтекание (чтобы не сбивать с float) */
 }
 
 p {
-  margin: 20px 0;
-  text-indent: 20px;
-  font-size: 1.05em;
-  color: #000000; /* ✅ Цвет абзацев — теперь чёрный */
+  margin: 20px 0;                       /* → отступы между абзацами */
+  text-indent: 20px;                    /* → красная строка */
+  font-size: 1.05em;                    /* → чуть больше базового */
+  color: #000000;                       /* → чёрный цвет текста */
 }
 
 /* Первый абзац — без отступа, чтобы начинать рядом с картинкой */
 p:first-of-type {
-  text-indent: 0;
+  text-indent: 0;                       /* → убираем красную строку у первого абзаца */
 }
 
 /* === Цвет последнего абзаца — особый === */
 p:last-of-type {
-  color: #903521; /* остаётся без изменений */
+  color: #903521;                       /* → сохраняем тёплый коричневый для финальной мысли */
 }
 
 /* === Выделение первой буквы абзаца — работает везде, включая Яндекс.Браузер === */
 p::first-letter {
-  color: #E5B722;
-  font-size: 1.1em;     /* ✅ Теперь действительно как у h1 */
-  font-weight: 800;     /* ✅ Максимально допустимая жирность (Segoe UI поддерживает) */
-  margin-right: 0.1em;  /* ✅ Отступ в относительных единицах */
-  line-height: 1;       /* ✅ Чтобы не растягивало строку */
-  display: inline-block; /* ✅ Обязательно Иногда Chromium-браузеры (включая Яндекс) требуют этого для корректного отображения ::first-letter */
+  color: #E5B722;                       /* → золотисто-жёлтый — как в старинных буквицах */
+  font-size: 1.1em;                     /* → крупнее обычного текста, но не гигантская */
+  font-weight: 800;                     /* → максимально допустимая жирность */
+  margin-right: 0.1em;                  /* → небольшой отступ справа */
+  line-height: 1;                       /* → не растягивает строку */
+  display: inline-block;                /* → гарантирует корректную работу в Chromium (включая Яндекс) */
 }
-
-
 
 /* === Адаптивность: подстройка под малые экраны === */
 @media (max-width: 600px) {
   .image-container {
-    width: 140px;
+    width: 140px;                       /* → уменьшаем размер на планшетах */
     height: 140px;
-    margin: 0 15px 10px 0;
-    padding: 6px;
+    margin: 0 15px 10px 0;              /* → чуть меньше отступа */
+    padding: 6px;                       /* → уменьшаем внутренний отступ */
   }
 
   .clickable-image {
-    width: 126px;
+    width: 126px;                       /* → пропорционально уменьшаем изображение */
     height: 126px;
   }
 }
 
 @media (max-width: 400px) {
   .image-container {
-    width: 110px;
+    width: 110px;                       /* → для малых телефонов */
     height: 110px;
-    margin: 0 10px 10px 0;
-    padding: 4px;
+    margin: 0 10px 10px 0;              /* → минимальные отступы */
+    padding: 4px;                       /* → минимальный внутренний отступ */
   }
 
   .clickable-image {
-    width: 98px;
+    width: 98px;                        /* → пропорционально меньше */
     height: 98px;
   }
 }
 
 /* === Цитаты === */
 blockquote {
-  background: #f0e8d5;
-  border-left: 4px solid #b8a594;
-  margin: 25px 0;
-  padding: 15px 20px;
-  font-style: italic;
-  color: #D1685E; /* ✅ Цвет текста цитат изменён */
-  border-radius: 0 8px 8px 0;
+  background: #f0e8d5;                  /* → светло-бежевый фон цитаты */
+  border-left: 4px solid #b8a594;       /* → вертикальная полоса — выделяет цитату */
+  margin: 25px 0;                       /* → отступы сверху и снизу */
+  padding: 15px 20px;                   /* → внутренние отступы */
+  font-style: italic;                   /* → курсив — классический стиль цитат */
+  color: #D1685E;                       /* → тёплый красноватый оттенок — выделяется, но не резко */
+  border-radius: 0 8px 8px 0;           /* → скругление только справа */
 }
 
 /* === Подвал === */
 footer {
-  text-align: center;
-  margin-top: 60px;
-  color: #999;
-  font-size: 0.9em;
-  padding: 20px 0;
-  border-top: 1px dashed #d4c8b5;
-  font-style: italic;
+  text-align: center;                   /* → по центру */
+  margin-top: 60px;                     /* → отступ сверху */
+  color: #999;                          /* → серый цвет — не привлекает внимания */
+  font-size: 0.9em;                     /* → чуть меньше основного текста */
+  padding: 20px 0;                      /* → отступы */
+  border-top: 1px dashed #d4c8b5;       /* → пунктирная линия — как в старинных книгах */
+  font-style: italic;                   /* → курсив — атмосфера завершения */
 }
 
 footer a {
-  color: #5a4a3a;
-  text-decoration: none;
-  transition: color 0.3s ease;
+  color: #5a4a3a;                       /* → тёмно-бежевый — в тон оформлению */
+  text-decoration: none;                /* → без подчёркивания */
+  transition: color 0.3s ease;          /* → плавное изменение цвета */
 }
 
 footer a:hover {
-  color: #333;
-  text-decoration: underline;
+  color: #333;                          /* → темнеет при наведении */
+  text-decoration: underline;           /* → появляется подчёркивание */
 }
