@@ -1,238 +1,410 @@
 /* === Глобальные сбросы и базовые стили === */
 * {
-  margin: 0;                     /* → сбрасываем внешние отступы у всех элементов */
-  padding: 0;                   /* → сбрасываем внутренние отступы */
-  box-sizing: border-box;       /* → ширина/высота включают padding и border */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;  /* → современный, читаемый шрифт; sans-serif — запасной вариант */
-  background: #79ADA0;                  /* → тёплый бирюзово-зелёный фон — уют и природа */
-  padding: 20px;                        /* → отступы по краям страницы для дышащего дизайна */
-  line-height: 1.6;                     /* → комфортная высота строки для чтения */
-  color: #333;                          /* → тёмно-серый текст (мягче, чем чёрный) */
+  font-family: 'Segoe UI', sans-serif;
+  background: #79ADA0;
+  padding: 20px;
+  line-height: 1.6;
+  color: #333;
 }
 
 /* === Двухколоночный макет === */
 .layout {
-  display: grid;                        /* → используем CSS Grid для двухколоночного макета */
-  grid-template-columns: 1fr 3fr;       /* → соотношение колонок: 1 часть и 3 части */
-  gap: 20px;                            /* → расстояние между колонками */
-  max-width: 1400px;                    /* → ограничение ширины для удобства чтения */
-  margin: 0 auto;                       /* → центрируем макет по горизонтали */
-  min-height: 100vh;                    /* → минимум высоты — весь экран (для футера) */
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
 }
 
 /* Левая колонка — пергамент */
 .sidebar-left {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
-    center/cover fixed no-repeat;       /* → фон: цвет + текстура пергамента; center — по центру; cover — растягивается; fixed — эффект параллакса */
-  padding: 20px;                        /* → внутренние отступы */
-  border-radius: 12px;                  /* → скруглённые углы */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* → лёгкая тень для объёма */
-  display: flex;                        /* → активируем flexbox */
-  align-items: center;                  /* → вертикальное центрирование содержимого */
-  justify-content: center;              /* → горизонтальное центрирование */
-  font-size: 18px;                      /* → размер текста */
-  color: #fff;                          /* → белый цвет текста для контраста с фоном */
-  text-align: center;                   /* → выравнивание текста по центру */
-  font-style: italic;                   /* → курсив — атмосфера старинной книги */
-  font-weight: 300;                     /* → тонкий шрифт — изящность */
+    center/cover fixed no-repeat;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff; /* Белый текст в левой колонке */
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
 }
 
 /* Основной контент — фон древней бумаги */
 .content {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
-    center/cover fixed no-repeat;       /* → тот же фон, что и слева — единый стиль */
-  padding: 20px;                        /* → отступы */
-  border-radius: 12px;                  /* → скруглённые углы */
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* → чуть более сильная тень, чем у sidebar */
-  overflow: auto;                       /* → если контент выйдет за пределы — появится скролл */
+    center/cover fixed no-repeat;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  overflow: auto;
 }
 
 /* === Сетка 7×7 — адаптивная, масштабируемая === */
 .container {
-  display: flex;                        /* → центрируем сетку */
-  justify-content: center;              /* → по горизонтали */
-  align-items: flex-start;              /* → по вертикали — прижато к верху */
-  padding: 20px 0;                      /* → отступы сверху и снизу */
-  width: 100%;                          /* → на всю ширину родителя */
-  max-width: 100%;                      /* → безопасное ограничение */
-  margin: 0 auto;                       /* → центрирование */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .family-tree {
-  display: grid;                        /* → активируем сетку */
-  grid-template-columns: repeat(7, 1fr); /* → 7 равных столбцов */
-  grid-template-rows: repeat(7, 1fr);    /* → 7 равных строк */
-  gap: 4px;                             /* → тонкие промежутки между ячейками */
-  width: 100%;                          /* → на всю ширину контейнера */
-  max-width: 600px;                     /* → максимальная ширина */
-  aspect-ratio: 1 / 1;                  /* → всегда квадратная форма */
-  position: relative;                   /* → для позиционирования потомков */
-  border-radius: 12px;                  /* → скруглённые углы */
-  overflow: hidden;                     /* → обрезаем содержимое, выходящее за границы */
-  background: rgba(255, 255, 255, 0.85); /* → полупрозрачный белый фон (до перезаписи) */
-  backdrop-filter: blur(1.5px);         /* → эффект размытого стекла */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); /* → лёгкая тень */
-  transition: all 0.3s ease;            /* → плавные анимации всех изменений */
-  background: transparent;              /* → перебиваем предыдущий фон — прозрачный */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1.5px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: transparent;
 }
 
 .tree-node {
-  position: relative;                   /* → для позиционирования img и name */
-  aspect-ratio: 1 / 1;                  /* → квадратная ячейка */
-  background: transparent;              /* → прозрачный фон */
-  border: 1px solid rgba(180, 150, 100, 0.5); /* → тёплая рамка — как старинная бумага */
-  border-radius: 8px;                   /* → скруглённые углы ячейки */
-  overflow: hidden;                     /* → обрезаем изображение по краям */
-  cursor: pointer;                      /* → курсор-палец — можно кликнуть */
-  transition: transform 0.2s ease, box-shadow 0.3s ease; /* → плавные анимации */
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08); /* → лёгкая тень */
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  border: 1px solid rgba(180, 150, 100, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 }
 
 .tree-node:hover {
-  transform: translateY(-2px);         /* → ячейка слегка поднимается */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* → тень становится сильнее */
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
 .tree-node img {
-  width: 100%;                          /* → на всю ширину ячейки */
-  height: 100%;                         /* → на всю высоту */
-  object-fit: cover;                    /* → изображение заполняет, не искажая пропорции */
-  transition: transform 0.3s ease;      /* → плавный зум */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
 .tree-node img:hover {
-  transform: scale(1.06);               /* → лёгкое увеличение при наведении */
+  transform: scale(1.06);
 }
 
 .name {
-  display: none;                        /* → скрытое имя — вероятно, для JS или будущего показа */
+  display: none;
 }
 
 /* === Модальное окно === */
 .modal {
-  display: none;                        /* → по умолчанию скрыто */
-  position: fixed;                      /* → прилипает ко всему экрану */
-  z-index: 1000;                        /* → поверх всех элементов */
-  top: 0;                               /* → прижато к верху */
-  left: 0;                              /* → прижато к левому краю */
-  width: 100vw;                         /* → на всю ширину окна */
-  height: 100vh;                        /* → на всю высоту окна */
-  background-color: rgba(0, 0, 0, 0.85); /* → тёмный полупрозрачный фон */
-  justify-content: center;              /* → центрирование по вертикали */
-  align-items: center;                  /* → центрирование по горизонтали */
-  backdrop-filter: blur(2px);           /* → размытие фона — эффект "всплывающего" окна */
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
 }
 
 .modal-content {
-  position: relative;                   /* → для позиционирования кнопок */
-  width: 80%;                           /* → ширина окна */
-  max-width: 1200px;                    /* → ограничение на больших экранах */
-  height: 90vh;                         /* → высота — 90% экрана */
-  max-height: 90vh;                     /* → безопасное ограничение */
-  background: #fff;                     /* → белый фон окна */
-  border-radius: 16px;                  /* → скруглённые углы */
-  overflow: hidden;                     /* → обрезаем содержимое */
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4); /* → сильная тень — объём */
-  animation: modalFadeIn 0.3s ease-out; /* → анимация появления */
-  z-index: 1;                           /* → выше фона, но ниже кнопок */
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+  animation: modalFadeIn 0.3s ease-out;
+  z-index: 1;
 }
 
 #modal-iframe {
-  width: 100%;                          /* → на всю ширину */
-  height: 100%;                         /* → на всю высоту */
-  background: #fff;                     /* → белый фон iframe */
-  border: none;                         /* → без рамки */
-  border-radius: 0 0 16px 16px;         /* → скругление только внизу */
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: none;
+  border-radius: 0 0 16px 16px;
 }
 
 @keyframes modalFadeIn {
   from {
-    opacity: 0;                         /* → начинается с прозрачности */
-    transform: scale(0.9);              /* → начинается с уменьшенного размера */
+    opacity: 0;
+    transform: scale(0.9);
   }
   to {
-    opacity: 1;                         /* → заканчивается непрозрачным */
-    transform: scale(1);                /* → нормальный размер */
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
 .close {
-  position: absolute;                   /* → поверх контента */
-  top: 20px;                            /* → отступ сверху */
-  right: 20px;                          /* → отступ справа */
-  width: 40px;                          /* → размер кнопки */
-  height: 40px;                         /* → размер кнопки */
-  background: rgba(0, 0, 0, 0.7);       /* → полупрозрачный чёрный фон */
-  color: white;                         /* → белый крестик */
-  font-size: 28px;                      /* → крупный крестик */
-  font-weight: bold;                    /* → жирный */
-  display: flex;                        /* → центрируем крестик */
-  align-items: center;                  /* → по вертикали */
-  justify-content: center;              /* → по горизонтали */
-  border-radius: 50%;                   /* → круглая форма */
-  cursor: pointer;                      /* → указатель-палец */
-  z-index: 1002;                        /* → поверх всех элементов окна */
-  opacity: 0.9;                         /* → чуть прозрачная */
-  transition: all 0.3s ease;            /* → плавные изменения */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* → тень */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1002;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .close:hover,
 .close:focus {
-  background: #ff3333;                  /* → красный фон при наведении — сигнал закрытия */
-  transform: scale(1.1);                /* → увеличение */
-  opacity: 1;                           /* → становится непрозрачным */
-  outline: 2px solid #00aaff;           /* → синий контур при фокусе (доступность) */
-  outline-offset: 2px;                  /* → отступ контура */
+  background: #ff3333;
+  transform: scale(1.1);
+  opacity: 1;
+  outline: 2px solid #00aaff;
+  outline-offset: 2px;
 }
 
 .nav-btn {
-  position: absolute;                   /* → поверх iframe */
-  top: 50%;                             /* → посередине по вертикали */
-  transform: translateY(-50%);          /* → корректируем центрирование */
-  width: 50px;                          /* → ширина кнопки */
-  height: 50px;                         /* → высота */
-  border-radius: 50%;                   /* → круглая форма */
-  background: rgba(0, 0, 0, 0.7);       /* → полупрозрачный фон */
-  border: none;                         /* → без рамки */
-  cursor: pointer;                      /* → указатель-палец */
-  z-index: 1001;                        /* → ниже крестика, но выше контента */
-  display: flex;                        /* → центрируем стрелку */
-  align-items: center;                  /* → по вертикали */
-  justify-content: center;              /* → по горизонтали */
-  opacity: 0.8;                         /* → полупрозрачные */
-  transition: all 0.3s ease;            /* → плавные эффекты */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* → тень */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .nav-btn:hover {
-  background: rgba(0, 0, 0, 0.9);       /* → темнее при наведении */
-  opacity: 1;                           /* → становится непрозрачным */
-  transform: translateY(-50%) scale(1.1); /* → увеличивается */
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
 }
 
 .nav-btn:active {
-  transform: translateY(-50%) scale(0.95); /* → уменьшается при клике — эффект нажатия */
+  transform: translateY(-50%) scale(0.95);
 }
 
 .prev {
-  left: 20px;                           /* → слева */
+  left: 20px;
 }
 
 .next {
-  right: 20px;                          /* → справа */
+  right: 20px;
 }
 
 .prev::before {
-  content: "‹";                         /* → символ "меньше" — стрелка влево */
-  font-size: 24px;                      /* → размер */
-  color: white;                         /* → белый цвет */
+  content: "‹";
+  font-size: 24px;
+  color: white;
 }
 
 .next::before {
-  content: "›";                         /* → символ "больше" — стрелка вправо */
-  font-size: 24px;                      /* → размер */
-  color: white;                         /* →
+  content: "›";
+  font-size: 24px;
+  color: white;
+}
+
+/* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    min-height: auto;
+  }
+
+  .sidebar-left,
+  .content {
+    padding: 15px;
+  }
+
+  .sidebar-left {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 15px 0;
+  }
+
+  .family-tree {
+    max-width: 500px;
+    gap: 3px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .tree-node {
+    border-radius: 3px;
+  }
+
+  .modal-content {
+    width: 100%;
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .prev::before,
+  .next::before {
+    font-size: 20px;
+  }
+}
+
+/* === Очень маленькие экраны (телефоны) === */
+@media (max-width: 480px) {
+  .family-tree {
+    max-width: 320px;
+    gap: 2px;
+  }
+
+  .tree-node {
+    border: 1px solid #f0f0f0;
+  }
+}
+
+/* === Поддержка touch-интерфейсов === */
+@media (hover: none) and (pointer: coarse) {
+  .tree-node {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .tree-node:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* === Оптимизация анимаций === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Фокус для доступности === */
+.close:focus,
+.nav-btn:focus {
+  outline: 2px solid #00aaff;
+  outline-offset: 2px;
+}
+
+/* === Подвал сайта === */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 20px 30px;
+  background: #f0e8d5;
+  color: #9D3521; /* ✅ Основной цвет текста подвала изменён */
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  border-top: 1px solid #d4c8b5;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #9D3521; /* ✅ Рамка логотипа — в тон цвету */
+}
+
+.footer-logo h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 1px;
+  color: #9D3521; /* ✅ Заголовок логотипа — выделен */
+}
+
+.footer-description {
+  font-size: 0.95em;
+  font-style: italic;
+  margin: 0 0 16px;
+  color: #7a2c1b; /* ✅ Темнее оттенок для читаемости, но в той же гамме */
+  line-height: 1.6;
+}
+
+.footer-copyright {
+  font-size: 0.85em;
+  color: #999; /* можно оставить серым — он нейтрален и не должен выделяться */
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* === Адаптивность === */
+@media (max-width: 480px) {
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+  .footer-description {
+    font-size: 0.9em;
+  }
+}
+
+/* === Белый текст для заголовка на главной === */
+.content h2 {
+  color: #000000 !important;
+}
