@@ -1,125 +1,408 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Основные элементы
-  const modal = document.getElementById("modal");
-  const iframe = document.getElementById("modal-iframe");
-  const closeBtn = document.querySelector(".close");
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
+/* === Глобальные сбросы и базовые стили === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  let currentPage = 0;
-  const totalPages = 49;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #79ADA0;
+  padding: 20px;
+  line-height: 1.6;
+  color: #333;
+}
 
-  // --- Функция: обновить состояние кнопок ---
-  function updateNavButtons() {
-    prevBtn.disabled = currentPage <= 1;
-    nextBtn.disabled = currentPage >= totalPages;
+/* === Двухколоночный макет === */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
 
-    prevBtn.style.opacity = currentPage <= 1 ? "0.4" : "0.8";
-    nextBtn.style.opacity = currentPage >= totalPages ? "0.4" : "0.8";
+/* Левая колонка — пергамент */
+.sidebar-left {
+  background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+    center/cover fixed no-repeat;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff; /* Белый текст в левой колонке */
+  text-align: center;
+  font-style: italic;
+  font-weight: 300;
+}
 
-    prevBtn.style.cursor = currentPage <= 1 ? "not-allowed" : "pointer";
-    nextBtn.style.cursor = currentPage >= totalPages ? "not-allowed" : "pointer";
+/* Основной контент — фон древней бумаги */
+.content {
+  background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
+    center/cover fixed no-repeat;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+/* === Сетка 7×7 — адаптивная, масштабируемая === */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.family-tree {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+  width: 100%;
+  max-width: 600px;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(1.5px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.tree-node {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  border: 1px solid rgba(180, 150, 100, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.tree-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tree-node img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tree-node img:hover {
+  transform: scale(1.06);
+}
+
+.name {
+  display: none;
+}
+
+/* === Модальное окно === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 1200px;
+  height: 90vh;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.4);
+  animation: modalFadeIn 0.3s ease-out;
+  z-index: 1;
+}
+
+#modal-iframe {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: none;
+  border-radius: 0 0 16px 16px;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1002;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.close:hover,
+.close:focus {
+  background: #ff3333;
+  transform: scale(1.1);
+  opacity: 1;
+  outline: 2px solid #00aaff;
+  outline-offset: 2px;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.prev {
+  left: 20px;
+}
+
+.next {
+  right: 20px;
+}
+
+.prev::before {
+  content: "‹";
+  font-size: 24px;
+  color: white;
+}
+
+.next::before {
+  content: "›";
+  font-size: 24px;
+  color: white;
+}
+
+/* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    min-height: auto;
   }
 
-  // --- Функция: открыть страницу ---
-  function openModal(pageNum) {
-    const page = Math.max(1, Math.min(pageNum, totalPages));
-    currentPage = page;
-    iframe.src = `pages/page${page}.html`;
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-    modal.setAttribute("aria-hidden", "false");
-
-    // Обновляем состояние кнопок
-    updateNavButtons();
-
-    // Фокус на модальное окно для доступности
-    modal.focus();
+  .sidebar-left,
+  .content {
+    padding: 15px;
   }
 
-  // --- Функция: закрыть окно ---
-  function closeModal() {
-    modal.style.display = "none";
-    iframe.src = ""; // Очищаем iframe
-    document.body.style.overflow = "";
-    modal.setAttribute("aria-hidden", "true");
-    document.body.focus(); // Возвращаем фокус
+  .sidebar-left {
+    font-size: 16px;
   }
 
-  // --- Открытие модального окна ---
-  document.querySelectorAll(".tree-node a").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const href = link.getAttribute("href");
-      const match = href.match(/page(\d+)\.html$/);
-      const pageNum = match ? parseInt(match[1], 10) : 1;
-      openModal(pageNum);
-    });
-  });
-
-  // --- Обработчики событий ---
-  closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  prevBtn.addEventListener("click", () => {
-    if (currentPage > 1) openModal(currentPage - 1);
-  });
-
-  nextBtn.addEventListener("click", () => {
-    if (currentPage < totalPages) openModal(currentPage + 1);
-  });
-
-  // --- Клавиатурная навигация ---
-  document.addEventListener("keydown", (e) => {
-    if (modal.style.display !== "flex") return;
-
-    switch (e.key) {
-      case "Escape":
-        closeModal();
-        break;
-      case "ArrowLeft":
-        e.preventDefault();
-        if (currentPage > 1) openModal(currentPage - 1);
-        break;
-      case "ArrowRight":
-        e.preventDefault();
-        if (currentPage < totalPages) openModal(currentPage + 1);
-        break;
-    }
-  });
-
-  // --- Дополнительно: ARIA и доступность ---
-  modal.setAttribute("aria-hidden", "true");
-  modal.setAttribute("role", "dialog");
-  modal.setAttribute("aria-modal", "true");
-  modal.setAttribute("aria-label", "Страница буквицы");
-
-  closeBtn.setAttribute("aria-label", "Закрыть модальное окно");
-  prevBtn.setAttribute("aria-label", "Предыдущая буквица");
-  nextBtn.setAttribute("aria-label", "Следующая буквица");
-
-  modal.setAttribute("tabindex", "-1");
-
-  // === Адаптивная сетка: встроена в DOMContentLoaded ===
-  function resizeFamilyTree() {
-    const tree = document.querySelector('.family-tree');
-    if (!tree) return; // Защита
-
-    const windowWidth = window.innerWidth;
-
-    if (windowWidth <= 480) {
-      tree.style.width = '90%';
-    } else if (windowWidth <= 768) {
-      tree.style.width = '85%';
-    } else {
-      tree.style.width = '100%';
-      tree.style.maxWidth = '600px';
-    }
+  .container {
+    padding: 15px 0;
   }
 
-  // Вызываем при загрузке и ресайзе
-  resizeFamilyTree(); // Сразу при загрузке
-  window.addEventListener('resize', resizeFamilyTree);
-});
+  .family-tree {
+    max-width: 500px;
+    gap: 3px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .tree-node {
+    border-radius: 3px;
+  }
+
+  .modal-content {
+    width: 100%;
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .prev::before,
+  .next::before {
+    font-size: 20px;
+  }
+}
+
+/* === Очень маленькие экраны (телефоны) === */
+@media (max-width: 480px) {
+  .family-tree {
+    max-width: 320px;
+    gap: 2px;
+  }
+
+  .tree-node {
+    border: 1px solid #f0f0f0;
+  }
+}
+
+/* === Поддержка touch-интерфейсов === */
+@media (hover: none) and (pointer: coarse) {
+  .tree-node {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .tree-node:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* === Оптимизация анимаций === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Фокус для доступности === */
+.close:focus,
+.nav-btn:focus {
+  outline: 2px solid #00aaff;
+  outline-offset: 2px;
+}
+
+/* === Подвал сайта === */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 20px 30px;
+  background: #f0e8d5;
+  color: #5a4a3a;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  border-top: 1px solid #d4c8b5;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #5a4a3a;
+}
+
+.footer-logo h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.footer-description {
+  font-size: 0.95em;
+  font-style: italic;
+  margin: 0 0 16px;
+  color: #6b5c4b;
+  line-height: 1.6;
+}
+
+.footer-copyright {
+  font-size: 0.85em;
+  color: #999;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+  .footer-description {
+    font-size: 0.9em;
+  }
+}
+
+/* === Белый текст для заголовка на главной === */
+.content h2 {
+  color: #E5B722 !important;
+}
