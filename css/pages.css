@@ -243,3 +243,34 @@ p {
     transition: none;
   }
 }
+
+/* Оптимизация для Яндекс.Браузера */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  /* Специфичные стили для WebKit */
+  body {
+    font-size: calc(14px + 0.35vw);
+  }
+  
+  p {
+    hyphens: auto;
+    word-wrap: break-word;
+  }
+}
+
+/* Улучшение производительности */
+.image-container {
+  transform: translateZ(0); /* Композиция слоев */
+  will-change: transform, opacity;
+}
+
+/* Оптимизация текста */
+p {
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Решение проблем с переполнением */
+.content-wrapper {
+  overflow: auto;
+  width: 100%;
+}
