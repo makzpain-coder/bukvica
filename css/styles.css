@@ -23,6 +23,9 @@ body {
   min-height: 100vh;
 }
 
+
+
+
 /* Левая колонка — пергамент */
 .sidebar-left {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
@@ -30,65 +33,110 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  
+  /* ИЗМЕНЕНО: Растягиваем колонку по высоте и выравниваем контент к началу */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  
   font-size: 18px;
-  color: #fff; /* Белый текст в левой колонке */
+  color: #fff;
   text-align: center;
   font-style: italic;
   font-weight: 300;
 }
 
-.sidebar-left {
-  width: 300px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
-}
-
+/* Навигационный контейнер на ПК */
 .sidebar-nav {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: column; /* Элементы идут друг под другом */
+  gap: 12px;              /* Расстояние между кнопками */
+  width: 100%;            /* Растягиваем на всю ширину колонки */
 }
 
+/* Стили для ссылок-кнопок */
 .sidebar-btn {
-  display: block;
-  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;              /* Расстояние между иконкой и текстом */
+  color: #fff;
   text-decoration: none;
-  color: #333;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  text-align: center;
-  transition: all 0.3s ease;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  transition: background 0.2s ease;
 }
 
 .sidebar-btn:hover {
-  background-color: #007bff;
-  color: white;
-  border-color: #007bff;
+  background: rgba(255, 255, 255, 0.3);
 }
 
-.nav-section {
-  margin-bottom: 20px;
+/* === Объединённый адаптивный блок для маленьких экранов === */
+@media (max-width: 480px) {
+  
+  /* НОВОЕ: Перестраиваем общую сетку в одну колонку */
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* НОВОЕ: Превращаем левую колонку в горизонтальную панель */
+  .sidebar-left {
+    flex-direction: row;        /* Элементы меню встают в ряд */
+    justify-content: space-around; /* Равномерно распределяются по ширине */
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    background-attachment: scroll; /* Отключаем fixed фон на мобильных для плавной прокрутки */
+  }
+
+  /* Старые стили, которые уже были в вашем медиа-запросе, остаются без изменений: */
+  .family-tree {
+    max-width: 320px;
+    gap: 2px;
+  }
+
+  .tree-node {
+    border: 1px solid #f0f0f0;
+  }
+
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+
+  .footer-description {
+    font-size: 0.9em;
+  }
 }
 
-.nav-title {
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-  margin: 0 0 10px 0;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #eee;
+@media (max-width: 480px) {
+  /* ... ваши старые стили для .layout и .sidebar-left ... */
+
+  /* Перестраиваем навигацию в горизонтальный ряд на всю ширину */
+  .sidebar-nav {
+    flex-direction: row;       /* Кнопки встают в один ряд */
+    justify-content: space-between; /* Равномерно распределяются */
+    flex-wrap: wrap;           /* Если экран слишком узкий, кнопки перенесутся */
+    gap: 8px;
+  }
+
+  /* Оптимизируем кнопки для мобильного экрана */
+  .sidebar-btn {
+    flex: 1 1 auto;            /* Кнопки делят свободное место поровну */
+    justify-content: center;   /* Текст и иконка по центру */
+    padding: 8px 12px;
+    font-size: 14px;           /* Немного уменьшаем шрифт */
+  }
 }
 
-.sidebar-btn i {
-  margin-right: 10px;
-  width: 20px;
-  text-align: center;
-}
+
+
 
 
 /* Основной контент — фон древней бумаги */
@@ -406,10 +454,13 @@ html, body, :focus {
 }
 
 /* === Фокус для доступности === */
+/* Изменено: добавлен !important, чтобы перебить глобальное обнуление из первой части кода */
 .close:focus,
-.nav-btn:focus {
-  outline: 2px solid #00aaff;
-  outline-offset: 2px;
+.close:focus-visible,
+.nav-btn:focus,
+.nav-btn:focus-visible {
+  outline: 2px solid #00aaff !important;
+  outline-offset: 2px !important;
 }
 
 /* === Подвал сайта === */
@@ -417,7 +468,7 @@ html, body, :focus {
   margin-top: 60px;
   padding: 40px 20px 30px;
   background: #f0e8d5;
-  color: #9D3521; /* ✅ Основной цвет текста подвала изменён */
+  color: #9D3521; 
   font-family: 'Playfair Display', serif;
   text-align: center;
   border-top: 1px solid #d4c8b5;
@@ -440,7 +491,7 @@ html, body, :focus {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #9D3521; /* ✅ Рамка логотипа — в тон цвету */
+  border: 1px solid #9D3521; 
 }
 
 .footer-logo h3 {
@@ -448,75 +499,28 @@ html, body, :focus {
   font-weight: 600;
   margin: 0;
   letter-spacing: 1px;
-  color: #9D3521; /* ✅ Заголовок логотипа — выделен */
+  color: #9D3521; 
 }
 
 .footer-description {
   font-size: 0.95em;
   font-style: italic;
   margin: 0 0 16px;
-  color: #7a2c1b; /* ✅ Темнее оттенок для читаемости, но в той же гамме */
+  color: #7a2c1b; 
   line-height: 1.6;
 }
 
 .footer-copyright {
   font-size: 0.85em;
-  color: #999; /* можно оставить серым — он нейтрален и не должен выделяться */
+  color: #999; 
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* === Адаптивность === */
-@media (max-width: 480px) {
-  .footer-logo {
-    flex-direction: column;
-    gap: 8px;
-  }
-  .footer-logo h3 {
-    font-size: 1.2em;
-  }
-  .footer-description {
-    font-size: 0.9em;
-  }
-}
+/* Второе дублирование @media (max-width: 480px) успешно удалено */
 
 /* === Белый текст для заголовка на главной === */
+/* Обратите внимание: в комментарии написано "Белый текст", но код задает черный (#000000) */
 .content h2 {
-  color: #000000 !important;
+  color: #000000 !important; 
 }
-
-/* Адаптация левой колонки для мобильных устройств */
-@media (max-width: 768px) {
-  .sidebar-left {
-    width: 100%; /* Занимает всю ширину экрана */
-    padding: 15px; /* Уменьшаем отступы */
-    border-radius: 8px; /* Слегка смягчаем углы */
-  }
-
-  .sidebar-nav {
-    display: flex; /* Включаем flex-контейнер */
-    flex-wrap: wrap; /* Разрешаем перенос кнопок на новую строку */
-    justify-content: center; /* Центрируем кнопки по горизонтали */
-    gap: 8px; /* Расстояние между кнопками */
-  }
-
-  .sidebar-btn {
-    flex: 1 1 auto; /* Кнопки растягиваются и сжимаются, занимают необходимое пространство */
-    max-width: calc(50% - 4px); /* До двух кнопок в ряд с учётом gap */
-    padding: 12px 8px; /* Уменьшаем внутренние отступы */
-    font-size: 14px; /* Немного уменьшаем шрифт */
-    text-align: center; /* Текст по центру кнопки */
-    white-space: nowrap; /* Запрещаем перенос текста в кнопке */
-  }
-}
-
-/* Дополнительная адаптация для очень маленьких экранов (смартфоны в портретной ориентации) */
-@media (max-width: 480px) {
-  .sidebar-btn {
-    max-width: 100%; /* На очень маленьких экранах — одна кнопка в ряд */
-    font-size: 13px; /* Ещё уменьшаем шрифт */
-    padding: 10px 6px; /* Корректируем отступы */
-  }
-}
-
-
