@@ -239,6 +239,17 @@ body {
   color: white;
 }
 
+/* Отключение стандартного контура фокуса для всего документа при управлении с клавиатуры */
+html, body, :focus {
+    outline: none !important;
+}
+
+/* Если рамка появляется внутри iframe (модального окна) */
+#modal-iframe:focus {
+    outline: none !important;
+}
+
+
 /* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
 @media (max-width: 768px) {
   .layout {
