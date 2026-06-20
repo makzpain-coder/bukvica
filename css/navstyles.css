@@ -510,3 +510,34 @@ body {
   }
 }
 
+
+/* Стили для блока с текстом о нас */
+.about-text {
+  background: rgba(255, 255, 255, 0.7); /* Лёгкая прозрачность для читаемости на фоне */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #333;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.about-text p {
+  margin-bottom: 15px; /* Отступ между абзацами */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .about-text {
+    padding: 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-text {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+
