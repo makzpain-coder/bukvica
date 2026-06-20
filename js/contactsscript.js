@@ -1,40 +1,32 @@
-<script>
-document.getElementById('feedbackForm').addEventListener('submit', function(e) {
-    e.preventDefault();
+ <script>
+    emailjs.init('service_s8exece');
 
-    const formData = new FormData(this);
-    const submitBtn = this.querySelector('.submit-btn');
-    const originalBtnText = submitBtn.innerHTML;
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const submitBtn = document.querySelector('.submit-btn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
 
-    // Показываем индикатор загрузки
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value || 'Без темы',
+        message: document.getElementById('message').value
+      };
 
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(data => {
-        // Показываем результат
-        const resultDiv = document.createElement('div');
-        resultDiv.innerHTML = data;
-        resultDiv.style.marginTop = '15px';
-        this.insertAdjacentElement('afterend', resultDiv);
-
-        // Сбрасываем форму и кнопку
-        this.reset();
-        setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-            resultDiv.remove();
-        }, 5000);
-    })
-    .catch(error => {
-        console.error('Ошибка:', error);
-        alert('Произошла ошибка. Попробуйте ещё раз.');
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
+      emailjs.send('service_s8exece', 'ВАШ_TEMPLATE_ID', formData)
+        .then(() => {
+          alert('Сообщение успешно отправлено!');
+          document.getElementById('feedbackForm').reset();
+        })
+        .catch((error) => {
+          console.error('Ошибка:', error);
+          alert('Ошибка отправки. Проверьте консоль.');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        });
     });
-});
-</script>
+  </script>
