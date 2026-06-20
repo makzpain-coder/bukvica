@@ -1,32 +1,38 @@
- <script>
-    emailjs.init('service_s8exece');
+// Инициализация EmailJS (замените YOUR_USER_ID на ваш реальный User ID из EmailJS)
+emailjs.init('service_s8exece');
 
-    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const submitBtn = document.querySelector('.submit-btn');
-      const originalText = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+// Обработчик отправки формы
+document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-      const formData = {
+    // Показываем индикатор загрузки
+    const submitBtn = document.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+
+    // Собираем данные формы
+    const formData = {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         subject: document.getElementById('subject').value || 'Без темы',
         message: document.getElementById('message').value
-      };
+    };
 
-      emailjs.send('service_s8exece', 'ВАШ_TEMPLATE_ID', formData)
-        .then(() => {
-          alert('Сообщение успешно отправлено!');
-          document.getElementById('feedbackForm').reset();
+    // Отправляем через EmailJS
+    emailjs.send('service_s8exece', 'contact_form', formData)
+        .then(function() {
+            // Успех
+            alert('Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.');
+            document.getElementById('feedbackForm').reset();
+        }, function(error) {
+            // Ошибка
+            console.error('Ошибка EmailJS:', error);
+            alert('Ошибка при отправке. Попробуйте позже или напишите нам напрямую на 25online@mail.ru');
         })
-        .catch((error) => {
-          console.error('Ошибка:', error);
-          alert('Ошибка отправки. Проверьте консоль.');
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = originalText;
+        .finally(function() {
+            // Восстанавливаем кнопку
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
         });
-    });
-  </script>
+});
