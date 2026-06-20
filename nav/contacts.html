@@ -72,7 +72,7 @@
   <div class="contact-form-card">
 	  
     <h2>Напишите нам</h2>
-    <form id="feedbackForm" action="../php/sendmail.php" method="post">
+    <form id="feedbackForm" action="../php/sendmail.php" method="post" onsubmit="window.location.href='mailto:25online@mail.ru?subject=Обратная связь&body=' + document.getElementById('message').value; return false;">
       <div class="form-group">
         <label for="name">Имя *</label>
         <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
