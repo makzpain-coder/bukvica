@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject_form = htmlspecialchars($_POST['subject']);
     $message = htmlspecialchars($_POST['message']);
 
-    $to = "25online@mail.ru"; // Замените на ваш email
+    $to = "makzpain@gmail.com"; // Замените на ваш email
     $subject = "Сообщение с сайта: $subject_form";
     $body = "Имя: $name\nEmail: $email\n\nСообщение:\n$message";
     $headers = "From: $email";
