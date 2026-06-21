@@ -23,9 +23,6 @@ body {
   min-height: 100vh;
 }
 
-
-
-
 /* Левая колонка — пергамент */
 .sidebar-left {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
@@ -33,13 +30,13 @@ body {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  
-  /* ИЗМЕНЕНО: Растягиваем колонку по высоте и выравниваем контент к началу */
+
+  /* Растягиваем колонку по высоте и выравниваем контент к началу */
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  
+
   font-size: 18px;
   color: #fff;
   text-align: center;
@@ -72,73 +69,6 @@ body {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* === Объединённый адаптивный блок для маленьких экранов === */
-@media (max-width: 480px) {
-  
-  /* НОВОЕ: Перестраиваем общую сетку в одну колонку */
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  /* НОВОЕ: Превращаем левую колонку в горизонтальную панель */
-  .sidebar-left {
-    flex-direction: row;        /* Элементы меню встают в ряд */
-    justify-content: space-around; /* Равномерно распределяются по ширине */
-    align-items: center;
-    padding: 12px;
-    font-size: 16px;
-    background-attachment: scroll; /* Отключаем fixed фон на мобильных для плавной прокрутки */
-  }
-
-  /* Старые стили, которые уже были в вашем медиа-запросе, остаются без изменений: */
-  .family-tree {
-    max-width: 320px;
-    gap: 2px;
-  }
-
-  .tree-node {
-    border: 1px solid #f0f0f0;
-  }
-
-  .footer-logo {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .footer-logo h3 {
-    font-size: 1.2em;
-  }
-
-  .footer-description {
-    font-size: 0.9em;
-  }
-}
-
-@media (max-width: 480px) {
-  /* ... ваши старые стили для .layout и .sidebar-left ... */
-
-  /* Перестраиваем навигацию в горизонтальный ряд на всю ширину */
-  .sidebar-nav {
-    flex-direction: row;       /* Кнопки встают в один ряд */
-    justify-content: space-between; /* Равномерно распределяются */
-    flex-wrap: wrap;           /* Если экран слишком узкий, кнопки перенесутся */
-    gap: 8px;
-  }
-
-  /* Оптимизируем кнопки для мобильного экрана */
-  .sidebar-btn {
-    flex: 1 1 auto;            /* Кнопки делят свободное место поровну */
-    justify-content: center;   /* Текст и иконка по центру */
-    padding: 8px 12px;
-    font-size: 14px;           /* Немного уменьшаем шрифт */
-  }
-}
-
-
-
-
-
 /* Основной контент — фон древней бумаги */
 .content {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
@@ -160,7 +90,6 @@ body {
   margin: 0 auto;
 }
 
-/* === Сетка 7×7 — адаптивная, масштабируемая === */
 .family-tree {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -172,8 +101,7 @@ body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  /* background: rgba(255, 255, 255, 0.85); */ /* ← удалено: перезаписано */
-  background: transparent; /* ← остаётся единственным значением */
+  background: transparent;
   backdrop-filter: blur(1.5px);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
@@ -340,16 +268,15 @@ body {
 
 /* Отключение стандартного контура фокуса для всего документа при управлении с клавиатуры */
 html, body, :focus {
-    outline: none !important;
+  outline: none !important;
 }
 
 /* Если рамка появляется внутри iframe (модального окна) */
 #modal-iframe:focus {
-    outline: none !important;
+  outline: none !important;
 }
 
-
-/* === ЕДИНСТВЕННЫЙ адаптивный блок — объединённый и исправленный === */
+/* === Адаптивные стили === */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
@@ -406,8 +333,38 @@ html, body, :focus {
   }
 }
 
-/* === Объединённый адаптивный блок для маленьких экранов === */
 @media (max-width: 480px) {
+  /* Перестраиваем общую сетку в одну колонку */
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Превращаем левую колонку в горизонтальную панель */
+  .sidebar-left {
+    flex-direction: row;        /* Элементы меню встают в ряд */
+    justify-content: space-around; /* Равномерно распределяются по ширине */
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    background-attachment: scroll; /* Отключаем fixed фон на мобильных для плавной прокрутки */
+  }
+
+  .sidebar-nav {
+    flex-direction: row;       /* Кнопки встают в один ряд */
+    justify-content: space-between; /* Равномерно распределяются */
+    flex-wrap: wrap;           /* Если экран слишком узкий, кнопки перенесутся */
+    gap: 8px;
+  }
+
+  /* Оптимизируем кнопки для мобильного экрана */
+  .sidebar-btn {
+    flex: 1 1 auto;            /* Кнопки делят свободное место поровну */
+    justify-content: center;   /* Текст и иконка по центру */
+    padding: 8px 12px;
+    font-size: 14px;           /* Немного уменьшаем шрифт */
+  }
+
   .family-tree {
     max-width: 320px;
     gap: 2px;
@@ -431,7 +388,7 @@ html, body, :focus {
   }
 }
 
-/* === Поддержка touch-интерфейсов === */
+/* === Поддержка touch‑интерфейсов === */
 @media (hover: none) and (pointer: coarse) {
   .tree-node {
     transform: none !important;
@@ -454,7 +411,6 @@ html, body, :focus {
 }
 
 /* === Фокус для доступности === */
-/* Изменено: добавлен !important, чтобы перебить глобальное обнуление из первой части кода */
 .close:focus,
 .close:focus-visible,
 .nav-btn:focus,
@@ -468,7 +424,7 @@ html, body, :focus {
   margin-top: 60px;
   padding: 40px 20px 30px;
   background: #f0e8d5;
-  color: #9D3521; 
+  color: #9D3521;
   font-family: 'Playfair Display', serif;
   text-align: center;
   border-top: 1px solid #d4c8b5;
@@ -491,7 +447,7 @@ html, body, :focus {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 1px solid #9D3521; 
+  border: 1px solid #9D3521;
 }
 
 .footer-logo h3 {
@@ -499,27 +455,25 @@ html, body, :focus {
   font-weight: 600;
   margin: 0;
   letter-spacing: 1px;
-  color: #9D3521; 
+  color: #9D3521;
 }
 
 .footer-description {
   font-size: 0.95em;
   font-style: italic;
   margin: 0 0 16px;
-  color: #7a2c1b; 
+  color: #7a2c1b;
   line-height: 1.6;
 }
 
 .footer-copyright {
   font-size: 0.85em;
-  color: #999; 
+  color: #999;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
 
-/* Второе дублирование @media (max-width: 480px) успешно удалено */
-
 /* === Белый текст для заголовка на главной === */
 .content h2 {
-  color: #FFFFFF !important; 
+  color: #FFFFFF !important;
 }
