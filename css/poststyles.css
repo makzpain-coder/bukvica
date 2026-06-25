@@ -268,48 +268,35 @@ body {
     padding: 15px;
   }
 
-  /* ГОРИЗОНТАЛЬНАЯ ПРОКРУЧИВАЕМАЯ ПАНЕЛЬ (МОБИЛЬНАЯ ВЕРСИЯ) */
+  /* === ГОРИЗОНТАЛЬНЫЕ КНОПКИ С ПЕРЕНОСОМ (БЕЗ ПРОКРУТКИ) === */
   .sidebar-left {
     flex-direction: row;
+    flex-wrap: wrap;               /* разрешает перенос кнопок на новую строку */
     align-items: center;
     justify-content: flex-start;
-    overflow-x: auto;                  /* прокрутка остаётся, но скроллбар скрываем */
     padding: 8px 0;
-    background-attachment: scroll;
+    background-attachment: scroll; /* отключаем fixed фон на мобильном */
+    gap: 8px;                      /* отступ между кнопками (вместо gap в .sidebar-nav) */
     font-size: 14px;
-
-    /* --- УДАЛИТЬ ИЛИ ЗАКОММЕНТИРОВАТЬ ЭТИ СТРОКИ --- */
-    /* scrollbar-width: thin; */
-    /* scrollbar-color: rgba(255,255,255,0.4) transparent; */
   }
-
-  /* --- УДАЛИТЬ ИЛИ ЗАКОММЕНТИРОВАТЬ ЭТОТ БЛОК ЦЕЛИКОМ --- */
-  /* .sidebar-left::-webkit-scrollbar {
-    height: 6px;
-  } */
-  /* .sidebar-left::-webkit-scrollbar-track {
-    background: transparent;
-  } */
-  /* .sidebar-left::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
-    border-radius: 3px;
-  } */
 
   .sidebar-nav {
     display: flex;
     flex-direction: row;
-    gap: 8px;
-    width: max-content;
+    flex-wrap: wrap;               /* дублируем на случай, если .sidebar-left не сработает */
+    width: 100%;
     margin: 0;
+    gap: 8px;
   }
 
   .sidebar-btn {
-    flex: 0 0 auto;
-    white-space: nowrap;
+    flex: 0 1 auto;                /* кнопки могут сжиматься, но не растягиваются */
+    white-space: nowrap;           /* текст кнопки не переносится внутри неё */
     padding: 10px 14px;
     transform: none;
   }
 
+  /* Остальные адаптивные стили (модалка, футер и т.д.) */
   .articles-nav {
     width: 100%;
     max-width: none;
