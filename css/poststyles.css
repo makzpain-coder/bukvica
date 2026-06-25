@@ -1,4 +1,6 @@
-/* === Глобальные сбросы и базовые стили === */
+/* =========================================
+   Глобальные сбросы и базовые стили
+   ========================================= */
 * {
   margin: 0;
   padding: 0;
@@ -11,9 +13,25 @@ body {
   padding: 20px;
   line-height: 1.6;
   color: #333;
+  min-height: 100vh;
 }
 
-/* === Двухколоночный макет === */
+h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, li {
+  list-style: none;
+}
+
+/* =========================================
+   Макет: двухколоночный на десктопе
+   ========================================= */
 .layout {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -23,7 +41,9 @@ body {
   min-height: 100vh;
 }
 
-/* Левая колонка — пергамент (десктоп) */
+/* =========================================
+   Левая колонка — пергамент (стиль буквицы)
+   ========================================= */
 .sidebar-left {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
     center/cover fixed no-repeat;
@@ -43,6 +63,7 @@ body {
   font-weight: 300;
 }
 
+/* Вертикальная навигация в сайдбаре (на ПК) */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -59,16 +80,18 @@ body {
   padding: 10px 15px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 8px;
-  transition: background 0.2s ease, transform 0.1s;
+  transition: background 0.2s ease;
 }
 
 .sidebar-btn:hover {
   background: rgba(255, 255, 255, 0.3);
-  transform: translateX(4px);
 }
 
-/* Основной контент — фон древней бумаги */
+/* =========================================
+   Правая колонка — контент статей
+   ========================================= */
 .content {
+  /* Фон как у левой колонки для единства стиля */
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
     center/cover fixed no-repeat;
   padding: 20px;
@@ -77,64 +100,77 @@ body {
   overflow: auto;
 }
 
-/* Заголовок страницы статей */
+/* Заголовок страницы */
 .content h2 {
+  color: #fff !important;
   text-align: center;
-  color: #FFFFFF !important;
   margin-bottom: 32px;
 }
 
-/* Вертикальная навигация по статьям */
+/* =========================================
+   Навигация по статьям (вертикальный список)
+   ========================================= */
 .articles-nav {
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.9); /* Полупрозрачный пергамент */
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 200, 181, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
-.articles-nav .nav-title {
+.nav-title {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5em;
-  color: #fff;
-  margin-bottom: 24px;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #4a3a2a;
   text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+/* Декоративная линия под заголовком */
+.nav-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #79ADA0;
+  margin: 10px auto 0;
 }
 
 .articles-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .article-link {
   display: flex;
   align-items: center;
-  gap: 12px;
-  color: #fff;
-  text-decoration: none;
-  padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 8px;
+  padding: 12px 16px;
+  background: transparent;
+  color: #2c221a;
+  border: 1px dashed #d4c8b5;
+  border-radius: 6px;
   transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 .article-link:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  border-color: #79ADA0;
+  color: #79ADA0;
+  transform: translateX(4px);
 }
 
 .link-icon {
-  font-size: 1.2em;
+  margin-right: 12px;
+  font-size: 1.2rem;
 }
 
-/* Ссылки, которые НЕ должны открываться в модалке (обычные переходы) */
-.article-link.external-link {
-  pointer-events: auto !important;
-}
-
-/* === Модальное окно === */
+/* =========================================
+   Модальное окно
+   ========================================= */
 .modal {
   display: none;
   position: fixed;
@@ -147,12 +183,15 @@ body {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(2px);
-  padding: 10px;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
 }
 
 .modal-content {
   position: relative;
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   height: 90vh;
   max-height: 90vh;
@@ -169,12 +208,13 @@ body {
   height: 100%;
   background: #fff;
   border: none;
+  border-radius: 0 0 16px 16px;
 }
 
 @keyframes modalFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
@@ -184,8 +224,8 @@ body {
 
 .close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   background: rgba(0, 0, 0, 0.7);
@@ -200,6 +240,7 @@ body {
   z-index: 1002;
   opacity: 0.9;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .close:hover,
@@ -227,6 +268,7 @@ body {
   justify-content: center;
   opacity: 0.8;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .nav-btn:hover {
@@ -235,27 +277,33 @@ body {
   transform: translateY(-50%) scale(1.1);
 }
 
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
 .prev {
-  left: 15px;
+  left: 20px;
 }
 
 .next {
-  right: 15px;
+  right: 20px;
 }
 
 .prev::before {
   content: "‹";
-  font-size: 26px;
+  font-size: 24px;
   color: white;
 }
 
 .next::before {
   content: "›";
-  font-size: 26px;
+  font-size: 24px;
   color: white;
 }
 
-/* === Адаптивность === */
+/* =========================================
+   Адаптивные стили
+   ========================================= */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
@@ -268,45 +316,12 @@ body {
     padding: 15px;
   }
 
-  /* === ГОРИЗОНТАЛЬНЫЕ КНОПКИ С ПЕРЕНОСОМ (БЕЗ ПРОКРУТКИ) === */
   .sidebar-left {
-    flex-direction: row;
-    flex-wrap: wrap;               /* разрешает перенос кнопок на новую строку */
-    align-items: center;
-    justify-content: flex-start;
-    padding: 8px 0;
-    background-attachment: scroll; /* отключаем fixed фон на мобильном */
-    gap: 8px;                      /* отступ между кнопками (вместо gap в .sidebar-nav) */
-    font-size: 14px;
+    font-size: 16px;
   }
 
-  .sidebar-nav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;               /* дублируем на случай, если .sidebar-left не сработает */
-    width: 100%;
-    margin: 0;
-    gap: 8px;
-  }
-
-  .sidebar-btn {
-    flex: 0 1 auto;                /* кнопки могут сжиматься, но не растягиваются */
-    white-space: nowrap;           /* текст кнопки не переносится внутри неё */
-    padding: 10px 14px;
-    transform: none;
-  }
-
-  /* Остальные адаптивные стили (модалка, футер и т.д.) */
   .articles-nav {
-    width: 100%;
-    max-width: none;
-    margin: 0;
-  }
-
-  .articles-nav .nav-title {
-    text-align: left;
-    font-size: 1.3em;
-    margin-bottom: 16px;
+    padding: 16px;
   }
 
   .modal-content {
@@ -314,12 +329,14 @@ body {
     border-radius: 0;
     height: 100vh;
     max-height: 100vh;
-    box-shadow: none;
   }
 
   .close {
     top: 10px;
     right: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
   }
 
   .nav-btn {
@@ -327,43 +344,72 @@ body {
     height: 44px;
   }
 
-  .family-tree {
-    max-width: 320px;
-    gap: 2px;
+  .prev::before,
+  .next::before {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
-  .tree-node {
-    border: 1px solid #f0f0f0;
+  /* Мобильная панель: горизонтальная, компактная */
+  .sidebar-left {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    background-attachment: scroll; /* Отключаем fixed фон для плавной прокрутки */
   }
 
-  .footer-logo {
-    flex-direction: column;
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
     gap: 8px;
   }
 
-  .footer-logo h3 {
-    font-size: 1.2em;
+  .sidebar-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 14px;
   }
 
-  .footer-description {
-    font-size: 0.9em;
+  .articles-nav,
+  .articles-list,
+  .article-link {
+    width: 100%;
+  }
+
+  .nav-title {
+    font-size: 1.3rem;
+    text-align: left;
+  }
+
+  .nav-title::after {
+    margin: 8px auto 0;
+    width: 40px;
   }
 }
 
-/* === Поддержка touch‑интерфейсов === */
+/* =========================================
+   Поддержка touch‑интерфейсов
+   ========================================= */
 @media (hover: none) and (pointer: coarse) {
-  .tree-node {
-    transform: none !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  .tree-node:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  .article-link,
+  .sidebar-btn {
+    padding: 14px 16px; /* Увеличиваем область нажатия */
   }
 }
 
-/* === Оптимизация анимаций === */
+/* =========================================
+   Оптимизация анимаций (для пользователей с чувствительностью к движению)
+   ========================================= */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -372,65 +418,13 @@ body {
   }
 }
 
-/* === Фокус для доступности === */
+/* =========================================
+   Фокус для доступности
+   ========================================= */
 .close:focus,
 .close:focus-visible,
 .nav-btn:focus,
 .nav-btn:focus-visible {
   outline: 2px solid #00aaff !important;
   outline-offset: 2px !important;
-}
-
-/* === Подвал сайта === */
-.site-footer {
-  margin-top: 60px;
-  padding: 40px 20px 30px;
-  background: #f0e8d5;
-  color: #9D3521;
-  font-family: 'Playfair Display', serif;
-  text-align: center;
-  border-top: 1px solid #d4c8b5;
-}
-
-.footer-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.footer-logo-img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1px solid #9D3521;
-}
-
-.footer-logo h3 {
-  font-size: 1.4em;
-  font-weight: 600;
-  margin: 0;
-  letter-spacing: 1px;
-  color: #9D3521;
-}
-
-.footer-description {
-  font-size: 0.95em;
-  font-style: italic;
-  margin: 0 0 16px;
-  color: #7a2c1b;
-  line-height: 1.6;
-}
-
-.footer-copyright {
-  font-size: 0.85em;
-  color: #999;
-  margin: 0;
-  font-family: 'Open Sans', sans-serif;
 }
