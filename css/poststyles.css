@@ -268,44 +268,46 @@ body {
     padding: 15px;
   }
 
-  /* === ГОРИЗОНТАЛЬНАЯ ПРОКРУЧИВАЕМАЯ ПАНЕЛЬ (МОБИЛЬНАЯ ВЕРСИЯ) === */
+  /* ГОРИЗОНТАЛЬНАЯ ПРОКРУЧИВАЕМАЯ ПАНЕЛЬ (МОБИЛЬНАЯ ВЕРСИЯ) */
   .sidebar-left {
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;       /* кнопки слева, не растягиваются */
-    overflow-x: auto;                  /* горизонтальная прокрутка */
+    justify-content: flex-start;
+    overflow-x: auto;                  /* прокрутка остаётся, но скроллбар скрываем */
     padding: 8px 0;
-    background-attachment: scroll;     /* отключаем fixed фон */
-    scrollbar-width: thin;             /* тонкий скроллбар в Firefox */
-    scrollbar-color: rgba(255,255,255,0.4) transparent;
+    background-attachment: scroll;
     font-size: 14px;
+
+    /* --- УДАЛИТЬ ИЛИ ЗАКОММЕНТИРОВАТЬ ЭТИ СТРОКИ --- */
+    /* scrollbar-width: thin; */
+    /* scrollbar-color: rgba(255,255,255,0.4) transparent; */
   }
 
-  /* Скрываем полосу прокрутки для Chrome/Safari/Edge */
-  .sidebar-left::-webkit-scrollbar {
+  /* --- УДАЛИТЬ ИЛИ ЗАКОММЕНТИРОВАТЬ ЭТОТ БЛОК ЦЕЛИКОМ --- */
+  /* .sidebar-left::-webkit-scrollbar {
     height: 6px;
-  }
-  .sidebar-left::-webkit-scrollbar-track {
+  } */
+  /* .sidebar-left::-webkit-scrollbar-track {
     background: transparent;
-  }
-  .sidebar-left::-webkit-scrollbar-thumb {
+  } */
+  /* .sidebar-left::-webkit-scrollbar-thumb {
     background: rgba(255,255,255,0.3);
     border-radius: 3px;
-  }
+  } */
 
   .sidebar-nav {
     display: flex;
     flex-direction: row;
     gap: 8px;
-    width: max-content;                /* ширина по содержимому */
+    width: max-content;
     margin: 0;
   }
 
   .sidebar-btn {
-    flex: 0 0 auto;                    /* кнопки не сжимаются и не растягиваются */
-    white-space: nowrap;               /* текст кнопки не переносится */
+    flex: 0 0 auto;
+    white-space: nowrap;
     padding: 10px 14px;
-    transform: none;                   /* убираем лишние трансформации */
+    transform: none;
   }
 
   .articles-nav {
