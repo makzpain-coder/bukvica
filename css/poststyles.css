@@ -23,7 +23,7 @@ body {
   min-height: 100vh;
 }
 
-/* Левая колонка — пергамент */
+/* Левая колонка — пергамент (десктоп) */
 .sidebar-left {
   background: #79ADA0 url('https://lh3.googleusercontent.com/pw/AP1GczNmmWGw_g2AbjjM92Dn2uM6D3vmRZH5MBxWQ6zxI2J7DPpVKG2W_-oQ8jh8NJR3ri8XCZvBqCU8WgpQny4YboE0DBf3IMMXcBVNAd1fiDa8I-dYa-wMcaB9SVCHGF5Zt-0r3S6yo31RbsMPOcqHpi8k=w1396-h875-s-no-gm?authuser=0')
     center/cover fixed no-repeat;
@@ -101,7 +101,7 @@ body {
 
 .articles-list {
   display: flex;
-  flex-direction: column; /* Вертикальный список */
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -136,7 +136,7 @@ body {
 
 /* === Модальное окно === */
 .modal {
-  display: none; /* Скрыто по умолчанию */
+  display: none;
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -147,7 +147,7 @@ body {
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(2px);
-  padding: 10px; /* Отступ на мобильных, чтобы рамка не прилипала к краям */
+  padding: 10px;
 }
 
 .modal-content {
@@ -255,7 +255,7 @@ body {
   color: white;
 }
 
-/* Адаптивность */
+/* === Адаптивность === */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
@@ -288,11 +288,6 @@ body {
     box-shadow: none;
   }
 
-  .close, .nav-btn {
-    top: auto;
-    bottom: auto;
-  }
-
   .close {
     top: 10px;
     right: 10px;
@@ -302,4 +297,135 @@ body {
     width: 44px;
     height: 44px;
   }
+
+  /* === Превращаем левую колонку в горизонтальную панель ТОЛЬКО на мобильном === */
+  .sidebar-left {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
+    background-attachment: scroll; /* Отключаем fixed фон на мобильных */
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sidebar-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .family-tree {
+    max-width: 320px;
+    gap: 2px;
+  }
+
+  .tree-node {
+    border: 1px solid #f0f0f0;
+  }
+
+  .footer-logo {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-logo h3 {
+    font-size: 1.2em;
+  }
+
+  .footer-description {
+    font-size: 0.9em;
+  }
+}
+
+/* === Поддержка touch‑интерфейсов === */
+@media (hover: none) and (pointer: coarse) {
+  .tree-node {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .tree-node:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* === Оптимизация анимаций === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* === Фокус для доступности === */
+.close:focus,
+.close:focus-visible,
+.nav-btn:focus,
+.nav-btn:focus-visible {
+  outline: 2px solid #00aaff !important;
+  outline-offset: 2px !important;
+}
+
+/* === Подвал сайта === */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 20px 30px;
+  background: #f0e8d5;
+  color: #9D3521;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  border-top: 1px solid #d4c8b5;
+}
+
+.footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-logo-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #9D3521;
+}
+
+.footer-logo h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 1px;
+  color: #9D3521;
+}
+
+.footer-description {
+  font-size: 0.95em;
+  font-style: italic;
+  margin: 0 0 16px;
+  color: #7a2c1b;
+  line-height: 1.6;
+}
+
+.footer-copyright {
+  font-size: 0.85em;
+  color: #999;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
 }
